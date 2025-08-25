@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { PrismaClient } from '../../generated/prisma';
@@ -43,6 +44,7 @@ async function uploadPhotoToCloudinary(file: PhotoFile): Promise<string> {
     const base64Data = file.base64.replace(/^data:image\/[a-z]+;base64,/, '');
     const buffer = Buffer.from(base64Data, 'base64');
     
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = await new Promise<any>((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         {
@@ -59,6 +61,7 @@ async function uploadPhotoToCloudinary(file: PhotoFile): Promise<string> {
           ],
           eager_async: true
         },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (error: any, result: any) => {
           if (error) reject(error);
           else resolve(result);
@@ -148,7 +151,7 @@ export async function getAllCars(): Promise<{ success: boolean; cars?: any[]; me
     });
 
     // Transform the data to match the frontend format
-    const transformedCars = cars.map(car => ({
+    const transformedCars = cars.map((car) => ({
       id: car.id,
       name: car.name,
       type: car.type,
@@ -297,7 +300,7 @@ export async function updateCar(
     }
 
     // Handle new photos if provided
-    let photoUrls: string[] = [];
+    const photoUrls: string[] = [];
     if (newPhotos && newPhotos.length > 0) {
       if (newPhotos.length > 5) {
         return {
@@ -420,7 +423,7 @@ export async function deleteCar(carId: string): Promise<{ success: boolean; mess
     }
 
     // Delete photos from Cloudinary
-    const photos = [car.photo1, car.photo2, car.photo3, car.photo4, car.photo5].filter(Boolean);
+    const photos: string[] = [car.photo1, car.photo2, car.photo3, car.photo4, car.photo5].filter((p): p is string => Boolean(p));
     
     for (const photoUrl of photos) {
       try {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { PrismaClient } from '../../generated/prisma';
@@ -42,6 +43,7 @@ async function uploadPhotoToCloudinary(file: PhotoFile): Promise<string> {
     const base64Data = file.base64.replace(/^data:image\/[a-z]+;base64,/, '');
     const buffer = Buffer.from(base64Data, 'base64');
     
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = await new Promise<any>((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         {
@@ -58,6 +60,7 @@ async function uploadPhotoToCloudinary(file: PhotoFile): Promise<string> {
           ],
           eager_async: true
         },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (error: any, result: any) => {
           if (error) reject(error);
           else resolve(result);
@@ -65,6 +68,7 @@ async function uploadPhotoToCloudinary(file: PhotoFile): Promise<string> {
       ).end(buffer);
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (result as any).secure_url;
   } catch (error) {
     throw new Error(`Failed to upload photo ${file.name}: ${error}`);

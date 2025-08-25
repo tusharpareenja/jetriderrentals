@@ -609,7 +609,7 @@ export default function HomePage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-heading font-bold text-foreground mb-4">What Our Customers Say</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Don't just take our word for it. Here's what our satisfied customers have to say about their experience
+              Don&apos;t just take our word for it. Here&apos;s what our satisfied customers have to say about their experience
             </p>
           </div>
 
@@ -701,7 +701,7 @@ export default function HomePage() {
                   </div>
                   <div>
                     <h3 className="font-heading font-semibold text-lg mb-2">Business Hours</h3>
-                    <p className="text-muted-foreground mb-2">We're here to help</p>
+                    <p className="text-muted-foreground mb-2">We&apos;re here to help</p>
                     <div className="space-y-1 text-sm">
                       <p className="text-foreground">
                         <span className="font-medium">Mon - Sat:</span> 9:00 AM - 8:00 PM

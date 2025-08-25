@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { useState, useEffect, useRef } from "react"
@@ -26,7 +27,7 @@ import { useRouter } from "next/navigation"
 import { addCar } from "@/app/actions/carAdd"
 import { getAllCars, updateCar, deleteCar } from "@/app/actions/carManagement"
 
-// Admin credentials - you can update these or use environment variables
+// Admin credentials - use NEXT_PUBLIC_ env vars on client
 const ADMIN_CREDENTIALS = {
   email: process.env.NEXT_PUBLIC_ADMIN_EMAIL,
   password: process.env.NEXT_PUBLIC_ADMIN_PASSWORD
