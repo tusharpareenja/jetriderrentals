@@ -419,12 +419,14 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
             <Button
+              onClick={() => window.location.href = '#cars'}
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-105"
             >
               Rent Now
             </Button>
             <Button
+              onClick={() => window.location.href = '#cars'}
               size="lg"
               variant="outline"
               className="border-white text-white hover:bg-white hover:text-foreground px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-105 bg-transparent"
@@ -987,7 +989,7 @@ export default function HomePage() {
           <div className="py-6 border-t border-border">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex flex-col sm:flex-row items-center gap-4 text-sm text-muted-foreground">
-                <p>&copy; 2024 Jet Rider Rentals. All rights reserved.</p>
+                <p>&copy; 2025 Jet Rider Rentals. All rights reserved.</p>
                 <div className="flex items-center gap-4">
                   <a href="#" className="hover:text-primary transition-colors">
                     Privacy Policy

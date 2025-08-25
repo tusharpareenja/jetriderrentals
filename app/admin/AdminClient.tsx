@@ -74,8 +74,9 @@ export default function AdminClient() {
     if (email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password) {
       setIsAuthenticated(true)
       localStorage.setItem("adminAuthenticated", "true")
+      window.location.reload()
     } else {
-      alert(`Invalid credentials! ${process.env.NEXT_PUBLIC_ADMIN_EMAIL}  ${process.env.NEXT_PUBLIC_ADMIN_PASSWORD}`) // Debugging line
+      alert(`Invalid credentials!`) // Debugging line
     }
   }
 
@@ -346,7 +347,7 @@ export default function AdminClient() {
               <h1 className="text-xl font-heading font-bold">Jet Rider Rentals - Admin Panel</h1>
               <p className="text-sm opacity-90">Manage your car fleet and bookings</p>
             </div>
-            <Button variant="outline" onClick={handleLogout} className="text-primary-foreground border-primary-foreground">
+            <Button variant="outline" onClick={handleLogout} className="text-primary-foreground bg-red border-primary-foreground">
               <LogOut className="w-4 h-4 mr-2" />
               Logout
             </Button>

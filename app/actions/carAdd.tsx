@@ -243,7 +243,7 @@ export async function addCar(
     return {
       success: false,
       message: 'Failed to add car',
-      errors: [`An unexpected error occurred: ${error}`]
+      errors: [`An unexpected error occurred`]
     };
   } finally {
     await prisma.$disconnect();
