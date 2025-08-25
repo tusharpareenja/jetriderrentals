@@ -1,0 +1,54 @@
+'use server'
+
+import { addFormSubmissionToSheet, FormSubmission } from '@/lib/googleSheets'
+
+export async function submitForm(data: FormSubmission) {
+  try {
+    // Basic validation
+    if (!data.name || !data.phone) {
+      return {
+        success: false,
+        message: 'Please fill in all required fields (Name, Email, Phone)',
+      }
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(data.email)) {
+      // return {
+      //   success: false,
+      //   message: 'Please enter a valid email address',
+      // }
+    }
+
+    // Phone validation (basic)
+    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/
+    if (!phoneRegex.test(data.phone.replace(/\s/g, ''))) {
+      return {
+        success: false,
+        message: 'Please enter a valid phone number',
+      }
+    }
+
+    // Add to Google Sheets
+    const result = await addFormSubmissionToSheet(data)
+
+    if (result.success) {
+      return {
+        success: true,
+        message: 'Thank you! Your inquiry has been submitted successfully. We will contact you soon.',
+      }
+    } else {
+      return {
+        success: false,
+        message: 'Sorry, there was an error submitting your inquiry. Please try again later.',
+      }
+    }
+  } catch (error) {
+    console.error('Error in form submission:', error)
+    return {
+      success: false,
+      message: 'An unexpected error occurred. Please try again later.',
+    }
+  }
+}

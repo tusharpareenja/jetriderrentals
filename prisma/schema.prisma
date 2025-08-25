@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Car {
+  id          String   @id @default(cuid())
+  name        String
+  type        String   // SUV, Sedan, Hatchback, etc.
+  transmission String  // Manual, Automatic, CVT
+  seats       Int
+  fuelType    String   // Petrol, Diesel, Electric, Hybrid
+  perDayCharge Float
+  isAvailable Boolean  @default(true)
+  isActive    Boolean  @default(true)
+  
+  // Photo URLs from Cloudinary
+  photo1      String   // Main photo
+  photo2      String?
+  photo3      String?
+  photo4      String?
+  photo5      String?
+  
+  // Additional details
+  description String?
+  mileage     Int?     // in kilometers
+  year        Int?
+  color       String?
+  features    String[] // Array of features like AC, GPS, etc.
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations (if you want to add bookings later)
+  // bookings Booking[]
+  
+  @@map("cars")
+  
+  // Database indexes for performance optimization
+  @@index([isActive, createdAt(sort: Desc)])
+  @@index([type])
+  @@index([isAvailable])
+  @@index([perDayCharge])
+  @@index([fuelType])
+}
