@@ -344,7 +344,7 @@ export default function AdminClient() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div>
-              <h1 className="text-xl font-heading font-bold">Jet Rider Rentals - Admin Panel</h1>
+              <h1 className="text-xl font-heading font-bold">Jet Ride Rentals - Admin Panel</h1>
               <p className="text-sm opacity-90">Manage your car fleet and bookings</p>
             </div>
             <Button variant="outline" onClick={handleLogout} className="text-primary-foreground bg-red border-primary-foreground">

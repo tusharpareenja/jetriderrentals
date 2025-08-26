@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     
     if (!result.success || !result.car) {
       return {
-        title: "Car Not Found - Jet Rider Rentals Chandigarh",
+        title: "Car Not Found - Jet Ride Rentals Chandigarh",
         description: "The requested car is not available. Browse our wide selection of rental cars in Chandigarh.",
       }
     }
@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     const car = result.car
 
       return {
-      title: `${car.name} Rental in Chandigarh - ₹${car.price}/day | Jet Rider Rentals`,
-      description: `Rent ${car.name} ${car.type} in Chandigarh at ₹${car.price} per day. ${car.description} Book now with Jet Rider Rentals for best car rental service in Chandigarh.`,
+      title: `${car.name} Rental in Chandigarh - ₹${car.price}/day | Jet Ride Rentals`,
+      description: `Rent ${car.name} ${car.type} in Chandigarh at ₹${car.price} per day. ${car.description} Book now with Jet Ride Rentals for best car rental service in Chandigarh.`,
       keywords: [
         `${car.name.toLowerCase()} rental chandigarh`,
         `${car.name.toLowerCase()} rent chandigarh`,
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
         `chandigarh car rental ${car.name.toLowerCase()}`,
         `${car.transmission.toLowerCase()} car rental chandigarh`,
         `${car.fuelType.toLowerCase()} car rent chandigarh`,
-                  "jet rider rentals",
+                  "jet ride rentals",
         "car rent chandigarh",
         "chandigarh car rent",
         "best car rental chandigarh",
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
         title: `${car.name} Rental in Chandigarh - ₹${car.price}/day`,
         description: `Rent ${car.name} ${car.type} in Chandigarh. ${car.mileage} mileage, ${car.seater} capacity, ${car.transmission} transmission. Book now!`,
         url: `https://jetriderrentals.com/car/${car.id}`,
-        siteName: "Jet Rider Rentals",
+        siteName: "Jet Ride Rentals",
         images: [
           {
             url: car.images[0] || "/placeholder.svg?height=630&width=1200",
@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       twitter: {
         card: "summary_large_image",
         title: `${car.name} Rental in Chandigarh - ₹${car.price}/day`,
-        description: `Rent ${car.name} ${car.type} in Chandigarh. ${car.mileage} mileage, ${car.seater} capacity. Book now with Jet Rider Rentals!`,
+        description: `Rent ${car.name} ${car.type} in Chandigarh. ${car.mileage} mileage, ${car.seater} capacity. Book now with Jet Ride Rentals!`,
         images: [car.images[0] || "/placeholder.svg?height=630&width=1200"],
       },
       alternates: {

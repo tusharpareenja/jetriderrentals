@@ -1,6 +1,6 @@
 # Google Sheets Integration Setup Guide
 
-This guide will help you set up Google Sheets integration to store form submissions from your Jet Rider Rentals website.
+This guide will help you set up Google Sheets integration to store form submissions from your Jet Ride Rentals website.
 
 ## Step 1: Create a Google Cloud Project
 
@@ -33,7 +33,7 @@ This guide will help you set up Google Sheets integration to store form submissi
 
 1. Go to [Google Sheets](https://sheets.google.com/)
 2. Create a new spreadsheet
-3. Name it "Jet Rider Rentals - Form Submissions"
+3. Name it "Jet Ride Rentals - Form Submissions"
 4. Add the following headers in the first row:
    ```
    Timestamp | Name | Car | Phone | Email | Pickup Date | Return Date | Message

@@ -218,7 +218,7 @@ const openBookingForm = () => {
               availability: "https://schema.org/InStock",
               seller: {
                 "@type": "Organization",
-                name: "Jet Rider Rentals",
+                name: "Jet Ride Rentals",
                 address: {
                   "@type": "PostalAddress",
                   streetAddress: "Sector 22",
@@ -244,7 +244,7 @@ const openBookingForm = () => {
                 Back
               </Button>
               <div>
-                <h1 className="text-xl font-heading font-bold text-primary">Jet Rider Rentals</h1>
+                <h1 className="text-xl font-heading font-bold text-primary">Jet Ride Rentals</h1>
                 <span className="text-xs text-muted-foreground">Chandigarh</span>
               </div>
             </div>

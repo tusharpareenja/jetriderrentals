@@ -55,7 +55,7 @@ const testimonials = [
     location: "Chandigarh",
     rating: 5,
     comment:
-              "Excellent service! The car was in perfect condition and the booking process was seamless. Highly recommend Jet Rider Rentals for anyone visiting Chandigarh.",
+              "Excellent service! The car was in perfect condition and the booking process was seamless. Highly recommend Jet Ride Rentals for anyone visiting Chandigarh.",
     car: "Honda City",
     date: "2 weeks ago",
   },
@@ -65,7 +65,7 @@ const testimonials = [
     location: "Delhi",
     rating: 5,
     comment:
-              "Amazing experience with Jet Rider Rentals. The staff was very professional and the car was delivered on time. Will definitely book again!",
+              "Amazing experience with Jet Ride Rentals. The staff was very professional and the car was delivered on time. Will definitely book again!",
     car: "Hyundai Creta",
     date: "1 month ago",
   },
@@ -85,7 +85,7 @@ const testimonials = [
     location: "Bangalore",
     rating: 5,
     comment:
-              "Outstanding service! The car was spotless and well-maintained. The team at Jet Rider Rentals made our Chandigarh trip memorable.",
+              "Outstanding service! The car was spotless and well-maintained. The team at Jet Ride Rentals made our Chandigarh trip memorable.",
     car: "Toyota Innova",
     date: "1 week ago",
   },
@@ -317,7 +317,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-2xl font-heading font-bold text-primary">Jet Rider Rentals</h1>
+              <h1 className="text-2xl font-heading font-bold text-primary">Jet Ride Rentals</h1>
 
             </div>
 
@@ -448,7 +448,7 @@ export default function HomePage() {
       <section className="py-20 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-heading font-bold text-foreground mb-4">Why Choose Jet Rider Rentals?</h2>
+            <h2 className="text-4xl font-heading font-bold text-foreground mb-4">Why Choose Jet Ride Rentals?</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               We provide exceptional service and premium vehicles to make your journey memorable
             </p>
@@ -849,7 +849,7 @@ export default function HomePage() {
               {/* Company Info */}
               <div className="lg:col-span-2">
                 <div className="flex items-center mb-4">
-                  <h3 className="text-2xl font-heading font-bold text-primary">Jet Rider Rentals</h3>
+                  <h3 className="text-2xl font-heading font-bold text-primary">Jet Ride Rentals</h3>
                   <span className="ml-2 text-sm text-muted-foreground">Chandigarh</span>
                 </div>
                 <p className="text-muted-foreground mb-6 max-w-md">
@@ -989,7 +989,7 @@ export default function HomePage() {
           <div className="py-6 border-t border-border">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex flex-col sm:flex-row items-center gap-4 text-sm text-muted-foreground">
-                <p>&copy; 2025 Jet Rider Rentals. All rights reserved.</p>
+                <p>&copy; 2025 Jet Ride Rentals. All rights reserved.</p>
                 <div className="flex items-center gap-4">
                   <a href="#" className="hover:text-primary transition-colors">
                     Privacy Policy

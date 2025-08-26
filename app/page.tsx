@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import ClientPage from "./ClientPage"
 
 export const metadata: Metadata = {
-  title: "Jet Rider Rentals - Best Car Rent Services in Chandigarh | Premium Car Rentals",
+  title: "Jet Ride Rentals - Best Car Rent Services in Chandigarh | Premium Car Rentals",
   description:
-    "Rent premium cars in Chandigarh with Jet Rider Rentals. Best car rental service offering sedans, hatchbacks, SUVs & luxury vehicles at competitive prices. Book now for hassle-free car hire in Chandigarh.",
+    "Rent premium cars in Chandigarh with Jet Ride Rentals. Best car rental service offering sedans, hatchbacks, SUVs & luxury vehicles at competitive prices. Book now for hassle-free car hire in Chandigarh.",
   keywords: [
     "car rent chandigarh",
     "chandigarh car rent",
@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     "sedan rental chandigarh",
     "hatchback rental chandigarh",
     "SUV rental chandigarh",
-    "jet rider rentals",
+    "jet ride rentals",
     "best car rental chandigarh",
     "cheap car rental chandigarh",
     "car booking chandigarh",
     "chandigarh taxi service",
     "premium car rental chandigarh",
-    "jet rider car rentals",
+    "jet ride car rentals",
     "car rental services chandigarh",
     "rentals in chandigarh",
     "car rental deals chandigarh",
@@ -33,17 +33,17 @@ export const metadata: Metadata = {
     "car rental packages chandigarh",
   ],
   openGraph: {
-    title: "Jet Rider Rentals - Best Car Rent Services in Chandigarh",
+    title: "Jet Ride Rentals - Best Car Rent Services in Chandigarh",
     description:
-      "Rent premium cars in Chandigarh with Jet Rider Rentals. Wide selection of vehicles at competitive prices with 24/7 support.",
+      "Rent premium cars in Chandigarh with Jet Ride Rentals. Wide selection of vehicles at competitive prices with 24/7 support.",
     url: "https://jetriderrentals.com",
-    siteName: "Jet Rider Rentals",
+    siteName: "Jet Ride Rentals",
     images: [
       {
         url: "/placeholder.svg?height=630&width=1200",
         width: 1200,
         height: 630,
-        alt: "Jet Rider Rentals - Premium Car Rentals in Chandigarh",
+        alt: "Jet Ride Rentals - Premium Car Rentals in Chandigarh",
       },
     ],
     locale: "en_IN",
@@ -51,9 +51,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jet Rider Rentals - Best Car Rent Services in Chandigarh",
+    title: "Jet Ride Rentals - Best Car Rent Services in Chandigarh",
     description:
-      "Rent premium cars in Chandigarh with Jet Rider Rentals. Wide selection of vehicles at competitive prices.",
+      "Rent premium cars in Chandigarh with Jet Ride Rentals. Wide selection of vehicles at competitive prices.",
     images: ["/placeholder.svg?height=630&width=1200"],
   },
   alternates: {
