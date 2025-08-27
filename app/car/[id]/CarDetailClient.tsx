@@ -457,7 +457,7 @@ const openBookingForm = () => {
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center gap-2">
                     <Phone className="w-4 h-4 text-primary" />
-                    <span>+91 98765 43210</span>
+                    <span>+91 90901 51546</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Mail className="w-4 h-4 text-primary" />

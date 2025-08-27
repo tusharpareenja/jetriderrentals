@@ -659,8 +659,7 @@ export default function HomePage() {
                   <div>
                     <h3 className="font-heading font-semibold text-lg mb-2">Call Us</h3>
                     <p className="text-muted-foreground mb-2">Speak directly with our team</p>
-                    <p className="text-foreground font-medium">+91 98765 43210</p>
-                    <p className="text-foreground font-medium">+91 87654 32109</p>
+                    <p className="text-foreground font-medium">+91 90901 51546</p>
                   </div>
                 </div>
               </Card>
@@ -688,9 +687,9 @@ export default function HomePage() {
                     <h3 className="font-heading font-semibold text-lg mb-2">Visit Us</h3>
                     <p className="text-muted-foreground mb-2">Our office location</p>
                     <p className="text-foreground font-medium">
-                      Sector 22, Chandigarh
+                      Cabin No. 4, SCO-210, Sector 14, Panchkula
                       <br />
-                      Punjab 160022, India
+                      Haryana, India
                     </p>
                   </div>
                 </div>
@@ -959,7 +958,7 @@ export default function HomePage() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-foreground">Call Us</p>
-                  <p className="text-sm text-muted-foreground">+91 98765 43210</p>
+                  <p className="text-sm text-muted-foreground">+91 90901 51546</p>
                 </div>
               </div>
 
@@ -979,7 +978,7 @@ export default function HomePage() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-foreground">Location</p>
-                  <p className="text-sm text-muted-foreground">Sector 22, Chandigarh</p>
+                  <p className="text-sm text-muted-foreground">Sector 20, Chandigarh</p>
                 </div>
               </div>
             </div>
