@@ -9,6 +9,8 @@ interface OptimizedImageProps {
   width?: number
   height?: number
   className?: string
+  containerClassName?: string
+  imgClassName?: string
   priority?: boolean
   fallback?: string
   quality?: number
@@ -20,6 +22,8 @@ export default function OptimizedImage({
   width = 400,
   height = 300,
   className = "",
+  containerClassName = "",
+  imgClassName = "",
   priority = false,
   fallback = "/placeholder.svg",
   quality = 75
@@ -42,8 +46,7 @@ export default function OptimizedImage({
         'q_auto', // Auto quality
         'w_' + width,
         'h_' + height,
-        'c_fill', // Crop mode
-        'g_auto' // Auto gravity
+        'c_fit' // Fit within box, avoid cropping
       ].join(',')
       
       return `${baseUrl}${optimizations}/${imagePath}`
@@ -55,7 +58,7 @@ export default function OptimizedImage({
   const optimizedSrc = getOptimizedUrl(src)
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative overflow-hidden ${containerClassName || className}`}>
       {isLoading && (
         <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
           <div className="w-8 h-8 border-4 border-gray-300 border-t-primary rounded-full animate-spin"></div>
@@ -67,7 +70,8 @@ export default function OptimizedImage({
         alt={alt}
         width={width}
         height={height}
-        className={`transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+        className={`transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'} ${imgClassName || className}`}
+        style={{ objectFit: 'contain', width: '100%', height: '100%' }}
         priority={priority}
         quality={quality}
         onLoad={() => setIsLoading(false)}

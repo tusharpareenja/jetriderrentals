@@ -137,7 +137,8 @@ function CarCard({ car }: { car: Car }) {
           alt={car.name}
           width={400}
           height={192}
-          className="w-full h-48 object-contain transition-transform duration-300 group-hover:scale-110"
+          containerClassName="w-full h-48"
+          imgClassName="object-contain transition-transform duration-300 group-hover:scale-105"
           priority={false}
         />
         <div
@@ -411,7 +412,7 @@ export default function HomePage() {
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <h1 className="text-5xl md:text-7xl font-heading font-bold mb-6 animate-fade-in-up">
             Premium Car Rentals
-            <span className="block text-primary">in Chandigarh</span>
+            <span className="block text-primary">in TryCity</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200 animate-fade-in-up animation-delay-200">
             Experience luxury and comfort with our wide selection of premium vehicles. From sedans to SUVs, find your
@@ -672,8 +673,8 @@ export default function HomePage() {
                   <div>
                     <h3 className="font-heading font-semibold text-lg mb-2">Email Us</h3>
                     <p className="text-muted-foreground mb-2">Send us your queries</p>
-                                  <p className="text-foreground font-medium">info@jetriderrentals.com</p>
-              <p className="text-foreground font-medium">bookings@jetriderrentals.com</p>
+                                  <p className="text-foreground font-medium">jetriderentals@gmail.com</p>
+              {/* <p className="text-foreground font-medium">bookings@jetriderrentals.com</p> */}
                   </div>
                 </div>
               </Card>
