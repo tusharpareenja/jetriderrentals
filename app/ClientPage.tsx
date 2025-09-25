@@ -408,9 +408,6 @@ export default function HomePage() {
                 >
                   Cars
                 </a>
-                <Link href="/for-nri" className="text-foreground hover:text-primary transition-colors">
-                For NRI
-              </Link>
                 <a
                   href="#testimonials"
                   className="block px-3 py-2 text-foreground hover:text-primary transition-colors"
@@ -418,6 +415,13 @@ export default function HomePage() {
                 >
                   Reviews
                 </a>
+                <Link
+                  href="/for-nri"
+                  className="block px-3 py-2 text-foreground hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  For NRI
+                </Link>
                 <a
                   href="#contact"
                   className="block px-3 py-2 text-foreground hover:text-primary transition-colors"

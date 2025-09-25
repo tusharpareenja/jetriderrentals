@@ -446,6 +446,13 @@ export default function NRIPage() {
                   Reviews
                 </Link>
                 <Link
+                  href="/for-nri"
+                  className="block px-3 py-2 text-foreground hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  For NRI
+                </Link>
+                <Link
                   href="/#contact"
                   className="block px-3 py-2 text-foreground hover:text-primary transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
