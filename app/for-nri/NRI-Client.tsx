@@ -25,7 +25,6 @@ import {
   ArrowRight,
 } from "lucide-react"
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
 
 // Carousel images for Swift and i20
@@ -517,7 +516,7 @@ export default function NRIPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
-              <span className="text-[#FF4500]">Weekly Car Rental For NRI's In Chandigarh</span>
+              <span className="text-[#FF4500]">Weekly Car Rental For NRI&apos;s In Chandigarh</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               <span className="font-semibold text-foreground">
@@ -550,7 +549,7 @@ export default function NRIPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
-              <span className="text-[#FF4500]">Monthly Car Rental For NRI's In Chandigarh</span>
+              <span className="text-[#FF4500]">Monthly Car Rental For NRI&apos;s In Chandigarh</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               <span className="font-semibold text-foreground">
@@ -716,29 +715,29 @@ export default function NRIPage() {
                 <h4 className="font-heading font-semibold text-foreground mb-4">Quick Links</h4>
                 <ul className="space-y-3">
                   <li>
-                    <a href="/" className="text-muted-foreground hover:text-primary transition-colors">
+                    <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
                       Home
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/#cars" className="text-muted-foreground hover:text-primary transition-colors">
+                    <Link href="/#cars" className="text-muted-foreground hover:text-primary transition-colors">
                       Our Fleet
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/nri" className="text-muted-foreground hover:text-primary transition-colors">
+                    <Link href="/nri" className="text-muted-foreground hover:text-primary transition-colors">
                       NRI Services
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/#testimonials" className="text-muted-foreground hover:text-primary transition-colors">
+                    <Link href="/#testimonials" className="text-muted-foreground hover:text-primary transition-colors">
                       Reviews
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/#contact" className="text-muted-foreground hover:text-primary transition-colors">
+                    <Link href="/#contact" className="text-muted-foreground hover:text-primary transition-colors">
                       Contact Us
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
