@@ -26,12 +26,14 @@ import {
   Loader2,
   CheckCircle2,
   AlertCircle,
+  MessageCircle,
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { getAllCars } from "@/app/actions/carManagement"
 import { submitForm } from "@/app/actions/formSubmission"
 import OptimizedImage from "@/components/OptimizedImage"
+import Link from "next/link"
 
 // Car data interface
 interface Car {
@@ -121,7 +123,9 @@ function CarCard({ car }: { car: Car }) {
 
   const handleBookNow = (e: React.MouseEvent) => {
     e.stopPropagation()
-    router.push(`/car/${car.id}`)
+    const message = `Hi! I'm interested in booking the ${car.name}. Please provide more details.`
+    const whatsappUrl = `https://wa.me/919090151546?text=${encodeURIComponent(message)}`
+    window.open(whatsappUrl, '_blank')
   }
 
   return (
@@ -135,11 +139,12 @@ function CarCard({ car }: { car: Car }) {
         <OptimizedImage
           src={car.images && car.images.length > 0 ? car.images[0] : "/placeholder.svg"}
           alt={car.name}
-          width={400}
-          height={192}
-          containerClassName="w-full h-48"
-          imgClassName="object-contain transition-transform duration-300 group-hover:scale-105"
+          width={1200}
+          height={800}
+          containerClassName="w-full h-80 bg-white flex items-center justify-center"
+          imgClassName="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
           priority={false}
+          quality={100}
         />
         <div
           className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-opacity duration-300 ${
@@ -222,12 +227,38 @@ function TestimonialCard({ testimonial }: { testimonial: (typeof testimonials)[0
   )
 }
 
+// Travel images for hero carousel
+const travelImages = [
+  "/travel-image1.jpg",
+  "/travel-image2.webp", 
+  "/travel-image3.webp",
+  "/travel-image4.webp"
+]
+
 export default function HomePage() {
   const [cars, setCars] = useState<Car[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [showAllCars, setShowAllCars] = useState(false)
   const [activeFilter, setActiveFilter] = useState("All")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  const handleWhatsAppClick = () => {
+    const message = "Hi! I'm interested in your car rental services. Please provide more information."
+    const whatsappUrl = `https://wa.me/919090151546?text=${encodeURIComponent(message)}`
+    window.open(whatsappUrl, '_blank')
+  }
+
+  // Hero carousel effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        (prevIndex + 1) % travelImages.length
+      )
+    }, 5000) // Change image every 5 seconds
+
+    return () => clearInterval(interval)
+  }, [])
   
   // Form state
   const [formData, setFormData] = useState({
@@ -253,6 +284,7 @@ export default function HomePage() {
       try {
         setIsLoading(true)
         const result = await getAllCars()
+        // console.log(result)
         if (result.success && result.cars) {
           setCars(result.cars)
         } else {
@@ -333,6 +365,9 @@ export default function HomePage() {
               <a href="#testimonials" className="text-foreground hover:text-primary transition-colors">
                 Reviews
               </a>
+              <Link href="/for-nri" className="text-foreground hover:text-primary transition-colors">
+                For NRI
+              </Link>
               <a href="#contact" className="text-foreground hover:text-primary transition-colors">
                 Contact
               </a>
@@ -398,13 +433,16 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image with Gradient Overlay */}
+        {/* Background Image Carousel with Gradient Overlay */}
         <div className="absolute inset-0">
-          <img
-            src="https://tse4.mm.bing.net/th/id/OIP.RxaZxkkX5ZtAy9ntYSMLcQHaEo?rs=1&pid=ImgDetMain&o=7&rm=3"
-            alt="Luxury car in Chandigarh"
-            className="w-full h-full object-cover"
-          />
+          {travelImages.map((src, idx) => (
+            <img
+              key={src}
+              src={src}
+              alt="Travel destinations"
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${idx === currentImageIndex ? 'opacity-100' : 'opacity-0'}`}
+            />
+          ))}
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
         </div>
 
@@ -1014,6 +1052,17 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      {/* Floating WhatsApp Button (middle left) */}
+      <div className="fixed left-4 top-1/2 -translate-y-1/2 z-50">
+        <button
+          onClick={handleWhatsAppClick}
+          className="w-14 h-14 rounded-full shadow-lg hover:shadow-xl transition-transform duration-300 hover:scale-110 focus:outline-none"
+          aria-label="Chat on WhatsApp"
+        >
+          <img src="/whatsapp.png" alt="WhatsApp" className="w-14 h-14 object-contain" />
+        </button>
+      </div>
     </div>
   )
 }
