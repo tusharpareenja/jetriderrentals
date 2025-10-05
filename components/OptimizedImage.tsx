@@ -14,6 +14,7 @@ interface OptimizedImageProps {
   priority?: boolean
   fallback?: string
   quality?: number
+  sizes?: string
 }
 
 export default function OptimizedImage({
@@ -26,7 +27,8 @@ export default function OptimizedImage({
   imgClassName = "",
   priority = false,
   fallback = "/placeholder.svg",
-  quality = 75
+  quality = 75,
+  sizes
 }: OptimizedImageProps) {
   const [imageError, setImageError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -74,6 +76,7 @@ export default function OptimizedImage({
         style={{ objectFit: 'contain', width: '100%', height: '100%' }}
         priority={priority}
         quality={quality}
+        sizes={sizes}
         onLoad={() => setIsLoading(false)}
         onError={() => {
           setImageError(true)

@@ -111,7 +111,18 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  generator: "v0.app",
+  
+  icons: {
+    icon: [
+      { url: "/jet_rentals.png", type: "image/png", sizes: "any" },
+    ],
+    shortcut: [
+      { url: "/jet_rentals.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/jet_rentals.png" },
+    ],
+  },
 }
 
 export default function RootLayout({

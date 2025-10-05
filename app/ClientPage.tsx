@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import React from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -57,8 +57,8 @@ const testimonials = [
     location: "Chandigarh",
     rating: 5,
     comment:
-              "Excellent service! The car was in perfect condition and the booking process was seamless. Highly recommend Jet Ride Rentals for anyone visiting Chandigarh.",
-    car: "Honda City",
+              "Excellent service! The car was in perfect condition and the booking process was seamless. Highly recommend Jet Ride Rentals for anyone visiting TryCity.",
+    car: "Scorpio N",
     date: "2 weeks ago",
   },
   {
@@ -84,11 +84,11 @@ const testimonials = [
   {
     id: 4,
     name: "Neha Gupta",
-    location: "Bangalore",
+    location: "Panchkula",
     rating: 5,
     comment:
               "Outstanding service! The car was spotless and well-maintained. The team at Jet Ride Rentals made our Chandigarh trip memorable.",
-    car: "Toyota Innova",
+    car: "Fortuner",
     date: "1 week ago",
   },
   {
@@ -98,22 +98,22 @@ const testimonials = [
     rating: 4,
     comment:
       "Professional service with competitive pricing. The booking was hassle-free and the car exceeded our expectations. Recommended!",
-    car: "Kia Seltos",
+    car: "i20",
     date: "2 months ago",
   },
   {
     id: 6,
     name: "Sunita Patel",
-    location: "Ahmedabad",
+    location: "Chandigarh",
     rating: 5,
     comment:
       "Fantastic experience! The team was courteous and the car was delivered exactly as promised. Will be our go-to rental service in Chandigarh.",
-    car: "Honda Amaze",
+    car: "Swift",
     date: "3 weeks ago",
   },
 ]
 
-function CarCard({ car }: { car: Car }) {
+const CarCard = React.memo(function CarCard({ car }: { car: Car }) {
   const [isHovered, setIsHovered] = useState(false)
   const router = useRouter()
 
@@ -139,12 +139,13 @@ function CarCard({ car }: { car: Car }) {
         <OptimizedImage
           src={car.images && car.images.length > 0 ? car.images[0] : "/placeholder.svg"}
           alt={car.name}
-          width={1200}
-          height={800}
+          width={600}
+          height={400}
           containerClassName="w-full h-80 bg-white flex items-center justify-center"
           imgClassName="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
           priority={false}
-          quality={100}
+          quality={70}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
         />
         <div
           className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-opacity duration-300 ${
@@ -191,7 +192,7 @@ function CarCard({ car }: { car: Car }) {
       </CardContent>
     </Card>
   )
-}
+})
 
 function TestimonialCard({ testimonial }: { testimonial: (typeof testimonials)[0] }) {
   return (
@@ -300,9 +301,13 @@ export default function HomePage() {
     fetchCars()
   }, [])
 
-  const filteredCars = activeFilter === "All" ? cars : cars.filter((car) => car.type === activeFilter)
+  const filteredCars = React.useMemo(() => (
+    activeFilter === "All" ? cars : cars.filter((car) => car.type === activeFilter)
+  ), [cars, activeFilter])
 
-  const displayedCars = showAllCars ? filteredCars : filteredCars.slice(0, 12)
+  const displayedCars = React.useMemo(() => (
+    showAllCars ? filteredCars : filteredCars.slice(0, 12)
+  ), [filteredCars, showAllCars])
 
   // Form submission handler
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -350,6 +355,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
+              <img src="/jet_rentals.png" alt="Jet Ride Rentals" className="w-12 h-12 mr-2" />
               <h1 className="text-2xl font-heading font-bold text-primary">Jet Ride Rentals</h1>
 
             </div>
@@ -532,7 +538,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-heading font-semibold mb-4">Local Expertise</h3>
                 <p className="text-muted-foreground">
-                  Based in Chandigarh, we know the city and surrounding areas like the back of our hand
+                  Based in TryCity, we know the city and surrounding areas like the back of our hand
                 </p>
               </CardContent>
             </Card>
@@ -895,10 +901,10 @@ export default function HomePage() {
               <div className="lg:col-span-2">
                 <div className="flex items-center mb-4">
                   <h3 className="text-2xl font-heading font-bold text-primary">Jet Ride Rentals</h3>
-                  <span className="ml-2 text-sm text-muted-foreground">Chandigarh</span>
+                  <span className="ml-2 text-sm text-muted-foreground">TryCity</span>
                 </div>
                 <p className="text-muted-foreground mb-6 max-w-md">
-                  Your trusted partner for premium car rentals in Chandigarh. We provide well-maintained vehicles and
+                  Your trusted partner for premium car rentals in TryCity. We provide well-maintained vehicles and
                   exceptional service to make your journey comfortable and memorable.
                 </p>
                 <div className="flex space-x-4">
@@ -1014,7 +1020,7 @@ export default function HomePage() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-foreground">Email Us</p>
-                  <p className="text-sm text-muted-foreground">info@jetriderrentals.com</p>
+                  <p className="text-sm text-muted-foreground">jetriderentals@gmail.com</p>
                 </div>
               </div>
 
@@ -1024,7 +1030,7 @@ export default function HomePage() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-foreground">Location</p>
-                  <p className="text-sm text-muted-foreground">Sector 20, Chandigarh</p>
+                  <p className="text-sm text-muted-foreground">Cabin No. 4, SCO-210, Sector 14, Panchkula</p>
                 </div>
               </div>
             </div>
@@ -1053,15 +1059,15 @@ export default function HomePage() {
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <span>Made with</span>
                 <span className="text-primary">❤</span>
-                <span>in Chandigarh</span>
+                <span>in TryCity</span>
               </div>
             </div>
           </div>
         </div>
       </footer>
 
-      {/* Floating WhatsApp Button (middle left) */}
-      <div className="fixed left-4 top-1/2 -translate-y-1/2 z-50">
+      {/* Floating WhatsApp Button (bottom right) */}
+      <div className="fixed right-4 bottom-4 z-50">
         <button
           onClick={handleWhatsAppClick}
           className="w-14 h-14 rounded-full shadow-lg hover:shadow-xl transition-transform duration-300 hover:scale-110 focus:outline-none"

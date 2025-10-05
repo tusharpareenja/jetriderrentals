@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import React from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -27,12 +27,6 @@ import {
 import { useState, useEffect } from "react"
 import Link from "next/link"
 
-// Carousel images for Swift and i20
-const swiftI20Images = [
-  "/swift.webp",
-  "/i20.jpg"
-]
-
 // Travel images for hero carousel
 const travelImages = [
   "/travel-image1.jpg",
@@ -45,11 +39,25 @@ const travelImages = [
 const nriCars = [
   {
     id: 1,
-    name: "Swift Or i20",
+    name: "Swift",
     type: "Hatchback",
-    weeklyPrice: 15000,
+    weeklyPrice: 12600,
+    monthlyPrice: 45000,
+    image: "/swift.webp",
+    mileage: "22 kmpl",
+    seater: "5 Seater",
+    transmission: "Manual",
+    fuel: "Petrol",
+    rating: 4.5,
+    features: ["AC", "Power Steering", "Music System", "Central Locking"],
+  },
+   {
+    id: 11,
+    name: "i20",
+    type: "Hatchback",
+    weeklyPrice: 14000,
     monthlyPrice: 50000,
-    image: "/white-swift-hatchback-car.jpg",
+    image: "/i20.jpg",
     mileage: "22 kmpl",
     seater: "5 Seater",
     transmission: "Manual",
@@ -61,12 +69,12 @@ const nriCars = [
     id: 2,
     name: "Altroz",
     type: "Hatchback",
-    weeklyPrice: 18000,
-    monthlyPrice: 60000,
+    weeklyPrice: 14000,
+    monthlyPrice: 50000,
     image: "/altroz.jpg",
     mileage: "18 kmpl",
     seater: "5 Seater",
-    transmission: "Automatic",
+    transmission: "Manual",
     fuel: "Petrol",
     rating: 4.6,
     features: ["AC", "Power Steering", "Touchscreen", "Reverse Camera"],
@@ -75,12 +83,12 @@ const nriCars = [
     id: 3,
     name: "Hyundai Venue",
     type: "SUV",
-    weeklyPrice: 23000,
-    monthlyPrice: 80000,
+    weeklyPrice: 15400,
+    monthlyPrice: 55000,
     image: "/venue.png",
-    mileage: "16 kmpl",
+    mileage: "18 kmpl",
     seater: "5 Seater",
-    transmission: "Automatic",
+    transmission: "Manual",
     fuel: "Petrol",
     rating: 4.7,
     features: ["AC", "Sunroof", "Touchscreen", "Wireless Charging"],
@@ -89,8 +97,8 @@ const nriCars = [
     id: 4,
     name: "Scorpio N",
     type: "SUV",
-    weeklyPrice: 30000,
-    monthlyPrice: 100000,
+    weeklyPrice: 35000,
+    monthlyPrice: 120000,
     image: "/scorpioN.jpg",
     mileage: "15 kmpl",
     seater: "7 Seater",
@@ -103,12 +111,12 @@ const nriCars = [
     id: 5,
     name: "Hyundai Creta",
     type: "SUV",
-    weeklyPrice: 25000,
-    monthlyPrice: 80000,
+    weeklyPrice: 22400,
+    monthlyPrice: 75000,
     image: "/creta.jpg",
     mileage: "18 kmpl",
     seater: "5 Seater",
-    transmission: "Automatic",
+    transmission: "Manual",
     fuel: "Petrol",
     rating: 4.7,
     features: ["AC", "Sunroof", "Touchscreen", "Wireless Charging"],
@@ -117,26 +125,26 @@ const nriCars = [
     id: 6,
     name: "Mahindra Thar",
     type: "SUV",
-    weeklyPrice: 32000,
+    weeklyPrice: 28000,
     monthlyPrice: 90000,
     image: "/thar.jpg",
     mileage: "15 kmpl",
     seater: "5 Seater",
-    transmission: "Automatic",
+    transmission: "Manual",
     fuel: "Petrol",
     rating: 4.6,
     features: ["AC", "Power Steering", "Touchscreen", "Reverse Camera"],
   },
   {
     id: 7,
-    name: "Mahindra Scorpio",
+    name: "Scorpio S11",
     type: "SUV",
-    weeklyPrice: 30000,
-    monthlyPrice: 80000,
+    weeklyPrice: 28000,
+    monthlyPrice: 90000,
     image: "/scorpio.jpg",
-    mileage: "16 kmpl",
-    seater: "5 Seater",
-    transmission: "Automatic",
+    mileage: "18 kmpl",
+    seater: "7 Seater",
+    transmission: "Manual",
     fuel: "Petrol",
     rating: 4.7,
     features: ["AC", "Sunroof", "Touchscreen", "Wireless Charging"],
@@ -145,10 +153,10 @@ const nriCars = [
     id: 8,
     name: "Hyundai Verna",
     type: "Sedan",
-    weeklyPrice: 37000,
-    monthlyPrice: 90000,
-    image: "/thar.jpg",
-    mileage: "15 kmpl",
+    weeklyPrice: 22400,
+    monthlyPrice: 75000,
+    image: "/verna.jpg",
+    mileage: "20 kmpl",
     seater: "5 Seater",
     transmission: "Automatic",
     fuel: "Petrol",
@@ -159,10 +167,10 @@ const nriCars = [
     id: 9,
     name: "Audi A3",
     type: "Luxury",
-    weeklyPrice: 65000,
-    monthlyPrice: 200000,
+    weeklyPrice: 70000,
+    monthlyPrice: 210000,
     image: "/audi.webp",
-    mileage: "16 kmpl",
+    mileage: "20 kmpl",
     seater: "5 Seater",
     transmission: "Automatic",
     fuel: "Petrol",
@@ -173,11 +181,11 @@ const nriCars = [
     id: 10,
     name: "Fortuner",
     type: "SUV",
-    weeklyPrice: 65000,
-    monthlyPrice: 200000,
+    weeklyPrice: 50000,
+    monthlyPrice: 180000,
     image: "/fortuner.png",
-    mileage: "16 kmpl",
-    seater: "5 Seater",
+    mileage: "13 kmpl",
+    seater: "7 Seater",
     transmission: "Automatic",
     fuel: "Petrol",
     rating: 4.7,
@@ -207,39 +215,17 @@ const requiredDocuments = [
   }
 ]
 
-function NRICarCard({ car, priceType }: { car: (typeof nriCars)[0]; priceType: "weekly" | "monthly" }) {
+const NRICarCard = React.memo(function NRICarCard({ car, priceType }: { car: (typeof nriCars)[0]; priceType: "weekly" | "monthly" }) {
   const [isHovered, setIsHovered] = useState(false)
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const price = priceType === "weekly" ? car.weeklyPrice : car.monthlyPrice
   const priceLabel = priceType === "weekly" ? "Week" : "Month"
-
-  // Carousel effect for Swift and i20
-  useEffect(() => {
-    if (car.name === "Swift Or i20") {
-      const interval = setInterval(() => {
-        setCurrentImageIndex((prevIndex) => 
-          (prevIndex + 1) % swiftI20Images.length
-        )
-      }, 10000) // Change image every 10 seconds
-
-      return () => clearInterval(interval)
-    }
-  }, [car.name])
 
   const handleBookNow = (e: React.MouseEvent) => {
     e.stopPropagation()
     const message = `Hi! I'm interested in booking the ${car.name} for ${priceType === 'weekly' ? 'weekly' : 'monthly'} rental. Please provide more details.`
     const whatsappUrl = `https://wa.me/919090151546?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
-  }
-
-  // Get the current image for Swift and i20 carousel
-  const getCurrentImage = () => {
-    if (car.name === "Swift Or i20") {
-      return swiftI20Images[currentImageIndex]
-    }
-    return car.image || "/placeholder.svg"
   }
 
   return (
@@ -252,26 +238,10 @@ function NRICarCard({ car, priceType }: { car: (typeof nriCars)[0]; priceType: "
         {/* Main Image Container */}
         <div className="relative w-full h-48">
           <img
-            src={getCurrentImage()}
+            src={car.image || "/placeholder.svg"}
             alt={car.name}
             className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
           />
-          
-          {/* Carousel Indicators for Swift and i20 */}
-          {car.name === "Swift Or i20" && (
-            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
-              {swiftI20Images.map((_, index) => (
-                <div
-                  key={index}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    index === currentImageIndex 
-                      ? "bg-white scale-125" 
-                      : "bg-white/50 hover:bg-white/75"
-                  }`}
-                />
-              ))}
-            </div>
-          )}
         </div>
 
         {/* Gradient Overlay */}
@@ -331,7 +301,7 @@ function NRICarCard({ car, priceType }: { car: (typeof nriCars)[0]; priceType: "
       </CardContent>
     </Card>
   )
-}
+})
 
 function DocumentCard({ document }: { document: (typeof requiredDocuments)[0] }) {
   const IconComponent = document.icon
@@ -380,6 +350,7 @@ export default function NRIPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
+              <img src="/jet_rentals.png" alt="Jet Ride Rentals" className="w-12 h-12 mr-2" />
               <h1 className="text-2xl font-heading font-bold text-primary">Jet Ride Rentals</h1>
 
             </div>
@@ -487,7 +458,7 @@ export default function NRIPage() {
         <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4">
           <h1 className="text-5xl md:text-7xl font-heading font-bold mb-6 animate-fade-in-up">
             Premium Car Rentals
-            <span className="block text-primary">for NRIs in Chandigarh</span>
+            <span className="block text-primary">for NRIs in TryCity</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200 animate-fade-in-up animation-delay-200 max-w-4xl mx-auto leading-relaxed">
             Experience hassle-free mobility with our exclusive NRI car rental packages. Choose from weekly and monthly
@@ -523,7 +494,7 @@ export default function NRIPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
-              <span className="text-[#FF4500]">Weekly Car Rental For NRI&apos;s In Chandigarh</span>
+              <span className="text-[#FF4500]">Weekly Car Rental For NRI&apos;s In TryCity</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               <span className="font-semibold text-foreground">
@@ -556,7 +527,7 @@ export default function NRIPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
-              <span className="text-[#FF4500]">Monthly Car Rental For NRI&apos;s In Chandigarh</span>
+              <span className="text-[#FF4500]">Monthly Car Rental For NRI&apos;s In TryCity</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               <span className="font-semibold text-foreground">
@@ -568,7 +539,7 @@ export default function NRIPage() {
               well-maintained vehicles, including <span className="font-semibold">Hatchbacks</span>, Sedans, SUVs, and
               Mini SUVs, all available at competitive rates. Whether for extended business stays or leisurely visits,
               our flexible terms and excellent customer service ensure a seamless and enjoyable driving experience in
-              Chandigarh.
+              TryCity.
             </p>
           </div>
 
@@ -683,10 +654,10 @@ export default function NRIPage() {
               <div className="lg:col-span-2">
                 <div className="flex items-center mb-4">
                   <h3 className="text-2xl font-heading font-bold text-primary">Jet Ride Rentals</h3>
-                  <span className="ml-2 text-sm text-muted-foreground">Chandigarh</span>
+                  <span className="ml-2 text-sm text-muted-foreground">TryCity</span>
                 </div>
                 <p className="text-muted-foreground mb-6 max-w-md">
-                  Your trusted partner for premium car rentals in Chandigarh. We provide well-maintained vehicles and
+                  Your trusted partner for premium car rentals in TryCity. We provide well-maintained vehicles and
                   exceptional service to make your journey comfortable and memorable.
                 </p>
                 <div className="flex space-x-4">
@@ -812,7 +783,7 @@ export default function NRIPage() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-foreground">Location</p>
-                  <p className="text-sm text-muted-foreground">Sector 14, Panchkula</p>
+                  <p className="text-sm text-muted-foreground">Cabin No. 4, SCO-210, Sector 14, Panchkula</p>
                 </div>
               </div>
             </div>
@@ -841,15 +812,15 @@ export default function NRIPage() {
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <span>Made with</span>
                 <span className="text-primary">❤</span>
-                <span>for NRIs in Chandigarh</span>
+                <span>for NRIs in TryCity</span>
               </div>
             </div>
           </div>
         </div>
       </footer>
 
-      {/* Floating WhatsApp Button (middle left) */}
-      <div className="fixed left-4 top-1/2 -translate-y-1/2 z-50">
+      {/* Floating WhatsApp Button (bottom right) */}
+      <div className="fixed right-4 bottom-4 z-50">
         <button
           onClick={handleWhatsAppClick}
           className="w-14 h-14 rounded-full shadow-lg hover:shadow-xl transition-transform duration-300 hover:scale-110 focus:outline-none"
