@@ -1,6 +1,7 @@
 'use server'
 
 import { addFormSubmissionToSheet, FormSubmission } from '@/lib/googleSheets'
+import { sendEmail } from '@/lib/sendEmail'
 
 export async function submitForm(data: FormSubmission) {
   try {
@@ -34,6 +35,29 @@ export async function submitForm(data: FormSubmission) {
     const result = await addFormSubmissionToSheet(data)
 
     if (result.success) {
+      // Fire-and-forget email notification; do not block success on email failure
+      const emailHtml = `
+        <div>
+          <h2>New Contact Submission</h2>
+          <p><strong>Name:</strong> ${data.name}</p>
+          <p><strong>Phone:</strong> ${data.phone}</p>
+          <p><strong>Email:</strong> ${data.email || '-'} </p>
+          <p><strong>Car:</strong> ${data.car || '-'} </p>
+          <p><strong>Pickup Date:</strong> ${data.pickupDate || '-'} </p>
+          <p><strong>Return Date:</strong> ${data.returnDate || '-'} </p>
+          <p><strong>Message:</strong><br/>${data.message || '-'} </p>
+        </div>
+      `
+      // best-effort send; log any errors
+      sendEmail({
+        to: 'jetriderentals@gmail.com',
+        subject: 'New Contact Submission - Rudra Car Rentals',
+        html: emailHtml,
+        text: `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nCar: ${data.car || '-'}\nPickup: ${data.pickupDate || '-'}\nReturn: ${data.returnDate || '-'}\nMessage: ${data.message || '-'}`,
+      }).catch((err) => {
+        console.error('Failed to send contact email:', err)
+      })
+
       return {
         success: true,
         message: 'Thank you! Your inquiry has been submitted successfully. We will contact you soon.',

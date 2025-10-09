@@ -228,7 +228,7 @@ const openBookingForm = () => {
                   addressCountry: "IN",
                 },
                 telephone: "+91 98765 43210",
-                email: "info@jetriderrentals.com",
+                email: "jetriderentals@gmail.com",
               },
             },
           }),
@@ -461,7 +461,7 @@ const openBookingForm = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <Mail className="w-4 h-4 text-primary" />
-                    <span>info@jetriderrentals.com</span>
+                    <span>jetriderentals@gmail.com</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-primary" />

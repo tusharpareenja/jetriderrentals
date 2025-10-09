@@ -74,7 +74,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
         "car:rating": car.rating.toString(),
         "business:location": "Chandigarh, India",
         "business:phone": "+91 98765 43210",
-                  "business:email": "info@jetriderrentals.com",
+                  "business:email": "jetriderentals@gmail.com",
       },
     }
   } catch (error) {
