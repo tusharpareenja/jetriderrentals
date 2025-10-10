@@ -59,7 +59,7 @@ export async function submitForm(data: FormSubmission) {
       
       // best-effort send; log any errors
       sendEmailResend({
-        to: 'ashish1999sheoran@gmail.com',
+        to: 'tusharpareenja@gmail.com',
         subject: 'New Contact Submission - Rudra Car Rentals',
         html: emailHtml,
         text: `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nCar: ${data.car || '-'}\nPickup: ${data.pickupDate || '-'}\nReturn: ${data.returnDate || '-'}\nMessage: ${data.message || '-'}`,
