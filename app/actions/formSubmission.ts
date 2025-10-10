@@ -1,7 +1,7 @@
 'use server'
 
 import { addFormSubmissionToSheet, FormSubmission } from '@/lib/googleSheets'
-import { sendEmailSimple } from '@/lib/sendEmailSimple'
+import { sendEmailResend } from '@/lib/sendEmailResend'
 
 export async function submitForm(data: FormSubmission) {
   try {
@@ -58,8 +58,8 @@ export async function submitForm(data: FormSubmission) {
       });
       
       // best-effort send; log any errors
-      sendEmailSimple({
-        to: 'mayanksharmarrk30@gmail.com',
+      sendEmailResend({
+        to: 'ashish1999sheoran@gmail.com',
         subject: 'New Contact Submission - Rudra Car Rentals',
         html: emailHtml,
         text: `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nCar: ${data.car || '-'}\nPickup: ${data.pickupDate || '-'}\nReturn: ${data.returnDate || '-'}\nMessage: ${data.message || '-'}`,

@@ -18,7 +18,7 @@ export async function sendEmailResend(options: SendEmailOptions): Promise<void> 
 
   try {
     const result = await resend.emails.send({
-      from: 'Rudra Car Rentals <onboarding@resend.dev>', // You can change this
+      from: 'Rudra Car Rentals <noreply@jetriderentals.com>', // Use your verified domain
       to: [to],
       subject: subject,
       html: html,
