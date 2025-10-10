@@ -42,14 +42,44 @@ export async function sendEmail(options: SendEmailOptions): Promise<void> {
     throw new Error('EMAIL_FROM is not configured')
   }
 
+  // Verify transporter before sending
   const tp = getTransporter()
-  await tp.sendMail({
-    from,
-    to,
-    subject,
-    text,
-    html,
-  })
+  
+  try {
+    // Verify connection first
+    await tp.verify()
+    console.log('SMTP connection verified successfully');
+  } catch (error) {
+    console.error('SMTP connection failed:', error);
+    throw new Error(`SMTP connection failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+
+  try {
+    const result = await tp.sendMail({
+      from,
+      to,
+      subject,
+      text,
+      html,
+    });
+    
+    console.log('Email sent successfully:', {
+      messageId: result.messageId,
+      to: to,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    const errorInfo = {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      code: (error as any)?.code,
+      response: (error as any)?.response,
+      to: to,
+      timestamp: new Date().toISOString()
+    };
+    console.error('Email sending failed:', errorInfo);
+    throw error;
+  }
 }
 
 

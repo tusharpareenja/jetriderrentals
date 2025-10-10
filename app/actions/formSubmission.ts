@@ -48,14 +48,31 @@ export async function submitForm(data: FormSubmission) {
           <p><strong>Message:</strong><br/>${data.message || '-'} </p>
         </div>
       `
+      
+      // Enhanced logging for production debugging
+      console.log('Attempting to send email for submission:', {
+        name: data.name,
+        phone: data.phone,
+        timestamp: new Date().toISOString(),
+        env: process.env.NODE_ENV
+      });
+      
       // best-effort send; log any errors
       sendEmail({
-        to: 'jetriderentals@gmail.com',
-        subject: 'New Contact Submission - Rudra Car Rentals',
+        to: 'mayanksharmarrk30@gmail.com',
+        subject: `New Contact Submission - Rudra Car Rentals - ${new Date().toLocaleString()}`,
         html: emailHtml,
         text: `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nCar: ${data.car || '-'}\nPickup: ${data.pickupDate || '-'}\nReturn: ${data.returnDate || '-'}\nMessage: ${data.message || '-'}`,
+      }).then(() => {
+        console.log('Email sent successfully for:', data.name);
       }).catch((err) => {
-        console.error('Failed to send contact email:', err)
+        console.error('Failed to send contact email:', {
+          error: err.message,
+          code: err.code,
+          response: err.response,
+          name: data.name,
+          timestamp: new Date().toISOString()
+        });
       })
 
       return {
