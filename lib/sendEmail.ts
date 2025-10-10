@@ -72,8 +72,8 @@ export async function sendEmail(options: SendEmailOptions): Promise<void> {
   } catch (error) {
     const errorInfo = {
       error: error instanceof Error ? error.message : 'Unknown error',
-      code: (error as any)?.code,
-      response: (error as any)?.response,
+      code: (error as { code?: string })?.code,
+      response: (error as { response?: string })?.response,
       to: to,
       timestamp: new Date().toISOString()
     };
