@@ -57,23 +57,25 @@ export async function submitForm(data: FormSubmission) {
         env: process.env.NODE_ENV
       });
       
-      // best-effort send; log any errors
-      sendEmailResend({
-        to: 'mayanksharmarrk30@gmail.com',
-        subject: 'New Contact Submission - Rudra Car Rentals',
-        html: emailHtml,
-        text: `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nCar: ${data.car || '-'}\nPickup: ${data.pickupDate || '-'}\nReturn: ${data.returnDate || '-'}\nMessage: ${data.message || '-'}`,
-      }).then(() => {
-        console.log('Email sent successfully for:', data.name);
-      }).catch((err) => {
-        console.error('Failed to send contact email:', {
-          error: err.message,
-          code: err.code,
-          response: err.response,
-          name: data.name,
-          timestamp: new Date().toISOString()
+      // Add delay to avoid rate limiting
+      setTimeout(() => {
+        sendEmailResend({
+          to: 'mayanksharmarrk30@gmail.com',
+          subject: 'New Contact Submission - Rudra Car Rentals',
+          html: emailHtml,
+          text: `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nCar: ${data.car || '-'}\nPickup: ${data.pickupDate || '-'}\nReturn: ${data.returnDate || '-'}\nMessage: ${data.message || '-'}`,
+        }).then(() => {
+          console.log('Email sent successfully for:', data.name);
+        }).catch((err) => {
+          console.error('Failed to send contact email:', {
+            error: err.message,
+            code: err.code,
+            response: err.response,
+            name: data.name,
+            timestamp: new Date().toISOString()
+          });
         });
-      })
+      }, 2000); // 2 second delay
 
       return {
         success: true,
