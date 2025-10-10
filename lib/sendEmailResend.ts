@@ -43,10 +43,10 @@ export async function sendEmailResend(options: SendEmailOptions): Promise<void> 
       setTimeout(() => reject(new Error('Email send timeout after 30 seconds')), 30000);
     });
 
-    const result = await Promise.race([emailPromise, timeoutPromise]);
+    const result = await Promise.race([emailPromise, timeoutPromise]) as any;
 
     console.log('Email sent successfully via Resend:', {
-      id: result.data?.id,
+      id: result?.data?.id,
       to: to,
       timestamp: new Date().toISOString()
     });
