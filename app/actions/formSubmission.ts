@@ -59,8 +59,8 @@ export async function submitForm(data: FormSubmission) {
       
       // best-effort send; log any errors
       sendEmail({
-        to: 'mayanksharmarrk30@gmail.com',
-        subject: `New Contact Submission - Rudra Car Rentals - ${new Date().toLocaleString()}`,
+        to: 'jetriderentals@gmail.com',
+        subject: 'New Contact Submission - Rudra Car Rentals',
         html: emailHtml,
         text: `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nCar: ${data.car || '-'}\nPickup: ${data.pickupDate || '-'}\nReturn: ${data.returnDate || '-'}\nMessage: ${data.message || '-'}`,
       }).then(() => {
