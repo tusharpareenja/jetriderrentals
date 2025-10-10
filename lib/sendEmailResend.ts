@@ -30,13 +30,20 @@ export async function sendEmailResend(options: SendEmailOptions): Promise<void> 
       timestamp: new Date().toISOString()
     });
 
-    const result = await resend.emails.send({
+    // Add timeout to prevent hanging
+    const emailPromise = resend.emails.send({
       from: 'Rudra Car Rentals <noreply@jetriderentals.com>', // Use your verified domain
       to: [to],
       subject: subject,
       html: html,
       text: text,
     });
+
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Email send timeout after 30 seconds')), 30000);
+    });
+
+    const result = await Promise.race([emailPromise, timeoutPromise]);
 
     console.log('Email sent successfully via Resend:', {
       id: result.data?.id,
@@ -48,6 +55,7 @@ export async function sendEmailResend(options: SendEmailOptions): Promise<void> 
     console.error('Resend email sending failed:', {
       error: error instanceof Error ? error.message : 'Unknown error',
       errorType: error instanceof Error ? error.constructor.name : typeof error,
+      stack: error instanceof Error ? error.stack : undefined,
       to: to,
       timestamp: new Date().toISOString()
     });
