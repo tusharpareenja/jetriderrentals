@@ -40,7 +40,7 @@ export async function sendEmailResend(options: SendEmailOptions): Promise<void> 
     });
 
     const timeoutPromise = new Promise((_, reject) => {
-      setTimeout(() => reject(new Error('Email send timeout after 30 seconds')), 30000);
+      setTimeout(() => reject(new Error('Email send timeout after 80 seconds')), 80000);
     });
 
     const result = await Promise.race([emailPromise, timeoutPromise]) as { data?: { id?: string } };
