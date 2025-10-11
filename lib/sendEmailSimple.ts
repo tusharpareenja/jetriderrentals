@@ -1,5 +1,3 @@
-import nodemailer from 'nodemailer'
-
 interface SendEmailOptions {
   to: string;
   subject: string;
@@ -10,49 +8,47 @@ interface SendEmailOptions {
 export async function sendEmailSimple(options: SendEmailOptions): Promise<void> {
   const { to, subject, html, text } = options
 
-  // Use a more reliable SMTP service
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.EMAIL_PORT || '587'),
-    secure: process.env.EMAIL_PORT === '465', // true for 465, false for other ports
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-    // Add connection timeout and retry settings
-    connectionTimeout: 60000, // 60 seconds
-    greetingTimeout: 30000,  // 30 seconds
-    socketTimeout: 60000,    // 60 seconds
-    // Retry settings
-    pool: true,
-    maxConnections: 1,
-    maxMessages: 3,
-    rateLimit: 1, // 1 email per second
-  })
-
   try {
-    // Test connection first
-    await transporter.verify()
-    console.log('SMTP connection verified successfully')
-
-    const result = await transporter.sendMail({
-      from: process.env.EMAIL_FROM,
+    console.log('Attempting to send email via Resend API:', {
       to: to,
       subject: subject,
-      html: html,
-      text: text,
+      timestamp: new Date().toISOString()
     })
 
-    console.log('Email sent successfully:', {
-      messageId: result.messageId,
+    // Use Resend API directly
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'Rudra Car Rentals <noreply@jetriderentals.com>',
+        to: [to],
+        subject: subject,
+        html: html,
+        text: text || html.replace(/<[^>]*>/g, '') // Strip HTML tags for text version
+      })
+    })
+
+    console.log('Resend Response Status:', response.status)
+    
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error('Resend Error Response:', errorText)
+      throw new Error(`Resend API error: ${response.status} - ${errorText}`)
+    }
+
+    const result = await response.json()
+    console.log('Email sent successfully via Resend:', {
+      result: result,
       to: to,
       timestamp: new Date().toISOString()
     })
 
   } catch (error) {
-    console.error('Email sending failed:', {
+    console.error('Resend sending failed:', {
       error: error instanceof Error ? error.message : 'Unknown error',
-      code: (error as { code?: string })?.code,
       to: to,
       timestamp: new Date().toISOString()
     })

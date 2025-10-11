@@ -8,9 +8,6 @@ interface SendEmailOptions {
 export async function sendEmailWebhook(options: SendEmailOptions): Promise<void> {
   const { to, subject, html, text } = options
 
-  // Use a simple webhook service like Zapier or Make.com
-  const webhookUrl = process.env.EMAIL_WEBHOOK_URL || 'https://hooks.zapier.com/hooks/catch/your-webhook-url'
-
   try {
     console.log('Attempting to send email via webhook:', {
       to: to,
@@ -18,6 +15,9 @@ export async function sendEmailWebhook(options: SendEmailOptions): Promise<void>
       timestamp: new Date().toISOString()
     })
 
+    // Use a simple webhook service
+    const webhookUrl = 'https://hooks.zapier.com/hooks/catch/your-webhook-url-here'
+    
     const response = await fetch(webhookUrl, {
       method: 'POST',
       headers: {
