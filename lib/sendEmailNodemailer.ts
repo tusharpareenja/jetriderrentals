@@ -19,14 +19,10 @@ export async function sendEmailNodemailer(options: SendEmailOptions): Promise<vo
       user: 'apikey', // This is literally the string 'apikey'
       pass: process.env.SENDGRID_API_KEY, // Your SendGrid API key
     },
-    // More aggressive timeout settings
+    // Connection timeout settings
     connectionTimeout: 30000, // 30 seconds
     greetingTimeout: 15000,    // 15 seconds
     socketTimeout: 30000,     // 30 seconds
-    pool: false, // Disable pooling to avoid connection issues
-    maxConnections: 1,
-    maxMessages: 1,
-    rateLimit: 2, // 2 seconds between emails
   })
 
   // Retry logic
