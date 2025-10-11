@@ -12,15 +12,20 @@ export async function sendEmailGmail(options: SendEmailOptions): Promise<void> {
 
   // Gmail SMTP configuration optimized for Vercel
   const transporter = nodemailer.createTransport({
-    service: 'gmail', // Use Gmail service
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // Use SSL/TLS
     auth: {
       user: process.env.EMAIL_USER, // Your Gmail address
       pass: process.env.EMAIL_PASSWORD, // Your Gmail App Password
     },
     // Vercel-optimized settings
-    connectionTimeout: 60000,
-    greetingTimeout: 30000,
-    socketTimeout: 60000,
+    connectionTimeout: 30000,
+    greetingTimeout: 15000,
+    socketTimeout: 30000,
+    tls: {
+      rejectUnauthorized: false // Allow self-signed certificates
+    }
   })
 
   try {
