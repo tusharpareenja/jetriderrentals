@@ -1,7 +1,7 @@
 'use server'
 
 import { addFormSubmissionToSheet, FormSubmission } from '@/lib/googleSheets'
-import { sendEmailNodemailer } from '@/lib/sendEmailNodemailer'
+import { sendEmailGmail } from '@/lib/sendEmailGmail'
 
 export async function submitForm(data: FormSubmission) {
   try {
@@ -60,7 +60,7 @@ export async function submitForm(data: FormSubmission) {
       });
       
       // best-effort send; log any errors
-      sendEmailNodemailer({
+      sendEmailGmail({
         to: 'mayanksharmarrk30@gmail.com', // Test with your own email
         subject: 'New Contact Submission - Rudra Car Rentals',
         html: emailHtml,
