@@ -1,7 +1,7 @@
 'use server'
 
 import { addFormSubmissionToSheet, FormSubmission } from '@/lib/googleSheets'
-import { sendEmailResend } from '@/lib/sendEmailResend'
+import { sendEmailNodemailer } from '@/lib/sendEmailNodemailer'
 
 export async function submitForm(data: FormSubmission) {
   try {
@@ -37,15 +37,17 @@ export async function submitForm(data: FormSubmission) {
     if (result.success) {
       // Fire-and-forget email notification; do not block success on email failure
       const emailHtml = `
-        <div>
-          <h2>New Contact Submission</h2>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #333;">New Contact Submission - Rudra Car Rentals</h2>
           <p><strong>Name:</strong> ${data.name}</p>
           <p><strong>Phone:</strong> ${data.phone}</p>
-          <p><strong>Email:</strong> ${data.email || '-'} </p>
-          <p><strong>Car:</strong> ${data.car || '-'} </p>
-          <p><strong>Pickup Date:</strong> ${data.pickupDate || '-'} </p>
-          <p><strong>Return Date:</strong> ${data.returnDate || '-'} </p>
-          <p><strong>Message:</strong><br/>${data.message || '-'} </p>
+          <p><strong>Email:</strong> ${data.email || 'Not provided'} </p>
+          <p><strong>Car:</strong> ${data.car || 'Not specified'} </p>
+          <p><strong>Pickup Date:</strong> ${data.pickupDate || 'Not specified'} </p>
+          <p><strong>Return Date:</strong> ${data.returnDate || 'Not specified'} </p>
+          <p><strong>Message:</strong><br/>${data.message || 'No additional message'} </p>
+          <hr style="margin: 20px 0;">
+          <p style="color: #666; font-size: 12px;">This email was sent from your Rudra Car Rentals website contact form.</p>
         </div>
       `
       
@@ -57,25 +59,23 @@ export async function submitForm(data: FormSubmission) {
         env: process.env.NODE_ENV
       });
       
-      // Add delay to avoid rate limiting
-      setTimeout(() => {
-        sendEmailResend({
-          to: 'mayanksharmarrk30@gmail.com',
-          subject: 'New Contact Submission - Rudra Car Rentals',
-          html: emailHtml,
-          text: `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nCar: ${data.car || '-'}\nPickup: ${data.pickupDate || '-'}\nReturn: ${data.returnDate || '-'}\nMessage: ${data.message || '-'}`,
-        }).then(() => {
-          console.log('Email sent successfully for:', data.name);
-        }).catch((err) => {
-          console.error('Failed to send contact email:', {
-            error: err.message,
-            code: err.code,
-            response: err.response,
-            name: data.name,
-            timestamp: new Date().toISOString()
-          });
+      // best-effort send; log any errors
+      sendEmailNodemailer({
+        to: 'mayanksharmarrk30@gmail.com', // Test with your own email
+        subject: 'New Contact Submission - Rudra Car Rentals',
+        html: emailHtml,
+        text: `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nCar: ${data.car || '-'}\nPickup: ${data.pickupDate || '-'}\nReturn: ${data.returnDate || '-'}\nMessage: ${data.message || '-'}`,
+      }).then(() => {
+        console.log('Email sent successfully for:', data.name);
+      }).catch((err) => {
+        console.error('Failed to send contact email:', {
+          error: err.message,
+          code: err.code,
+          response: err.response,
+          name: data.name,
+          timestamp: new Date().toISOString()
         });
-      }, 2000); // 2 second delay
+      })
 
       return {
         success: true,
