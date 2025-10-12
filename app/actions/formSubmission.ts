@@ -62,7 +62,7 @@ export async function submitForm(data: FormSubmission) {
       // Send email directly (more reliable than API route from server action)
       sendEmailSimple({
         to: 'pareenja55555@gmail.com',
-        subject: 'New Contact Submission - Rudra Car Rentals',
+        subject: 'New Contact Submission - Jet Ride Rentals',
         html: emailHtml,
         text: `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nCar: ${data.car || '-'}\nPickup: ${data.pickupDate || '-'}\nReturn: ${data.returnDate || '-'}\nMessage: ${data.message || '-'}`,
       }).then(() => {
