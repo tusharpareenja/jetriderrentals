@@ -36,21 +36,39 @@ export async function sendEmailSimple(options: SendEmailOptions): Promise<void> 
       },
       tls: {
         rejectUnauthorized: false // For Vercel compatibility
-      }
+      },
+      connectionTimeout: 10000, // 10 seconds
+      greetingTimeout: 5000, // 5 seconds
+      socketTimeout: 10000, // 10 seconds
     })
 
-    // Verify connection
-    await transporter.verify()
+    console.log('About to verify Gmail connection...')
+    
+    // Verify connection with timeout
+    await Promise.race([
+      transporter.verify(),
+      new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Connection timeout')), 15000)
+      )
+    ])
+    
     console.log('Gmail App Password connection verified successfully')
 
-    // Send email
-    const result = await transporter.sendMail({
-      from: `Rudra Car Rentals <${process.env.GMAIL_USER}>`,
-      to: to,
-      subject: subject,
-      html: html,
-      text: text || html.replace(/<[^>]*>/g, '') // Strip HTML tags for text version
-    })
+    // Send email with timeout
+    console.log('About to send email...')
+    
+    const result = await Promise.race([
+      transporter.sendMail({
+        from: `Rudra Car Rentals <${process.env.GMAIL_USER}>`,
+        to: to,
+        subject: subject,
+        html: html,
+        text: text || html.replace(/<[^>]*>/g, '') // Strip HTML tags for text version
+      }),
+      new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Email sending timeout')), 20000)
+      )
+    ])
 
     console.log('Email sent successfully via Gmail App Password:', {
       messageId: result.messageId,
