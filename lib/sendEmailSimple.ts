@@ -63,9 +63,9 @@ export async function sendEmailSimple(options: SendEmailOptions): Promise<void> 
       }
     }
 
-    if (!response.ok) {
-      const errorData = await response.json()
-      throw new Error(`Resend API error: ${errorData.message || response.statusText}`)
+    if (!response || !response.ok) {
+      const errorData = response ? await response.json() : { message: 'No response received' }
+      throw new Error(`Resend API error: ${errorData.message || (response ? response.statusText : 'Unknown error')}`)
     }
 
     const result = await response.json()
