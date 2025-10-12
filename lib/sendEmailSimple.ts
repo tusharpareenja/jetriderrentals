@@ -1,4 +1,4 @@
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 interface SendEmailOptions {
@@ -24,21 +24,44 @@ export async function sendEmailSimple(options: SendEmailOptions): Promise<void> 
       throw new Error('Resend API key not configured. Need: RESEND_API_KEY')
     }
 
-    // Send email via Resend API (Vercel-optimized)
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: 'Rudra Car Rentals <noreply@jetriderentals.com>',
-        to: [to],
-        subject: subject,
-        html: html,
-        text: text || html.replace(/<[^>]*>/g, '') // Strip HTML tags for text version
-      }),
-    })
+    // Send email via Resend API (Vercel-optimized with retry)
+    let response;
+    let retryCount = 0;
+    const maxRetries = 3;
+
+    while (retryCount < maxRetries) {
+      try {
+        console.log(`Resend API attempt ${retryCount + 1}/${maxRetries}`);
+        
+        response = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+            'Content-Type': 'application/json',
+            'User-Agent': 'RudraCarRentals/1.0'
+          },
+          body: JSON.stringify({
+            from: 'Rudra Car Rentals <noreply@jetriderentals.com>',
+            to: [to],
+            subject: subject,
+            html: html,
+            text: text || html.replace(/<[^>]*>/g, '') // Strip HTML tags for text version
+          }),
+        });
+        
+        break; // Success, exit retry loop
+      } catch (fetchError) {
+        retryCount++;
+        console.log(`Fetch attempt ${retryCount} failed:`, fetchError);
+        
+        if (retryCount >= maxRetries) {
+          throw fetchError;
+        }
+        
+        // Wait before retry
+        await new Promise(resolve => setTimeout(resolve, 1000 * retryCount));
+      }
+    }
 
     if (!response.ok) {
       const errorData = await response.json()
