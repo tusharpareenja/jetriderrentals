@@ -464,7 +464,7 @@ export default function NRIPage() {
             Experience hassle-free mobility with our exclusive NRI car rental packages. Choose from weekly and monthly
             options with well-maintained vehicles, competitive rates, and simplified documentation process.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
+          {/* <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
             <Button
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-105"
@@ -478,7 +478,7 @@ export default function NRIPage() {
             >
               Contact Us
             </Button>
-          </div>
+          </div> */}
         </div>
 
         {/* Scroll Indicator */}
