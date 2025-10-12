@@ -65,10 +65,10 @@ export async function sendEmailSimple(options: SendEmailOptions): Promise<void> 
         html: html,
         text: text || html.replace(/<[^>]*>/g, '') // Strip HTML tags for text version
       }),
-      new Promise((_, reject) => 
+      new Promise<never>((_, reject) => 
         setTimeout(() => reject(new Error('Email sending timeout')), 20000)
       )
-    ])
+    ]) as any
 
     console.log('Email sent successfully via Gmail App Password:', {
       messageId: result.messageId,
