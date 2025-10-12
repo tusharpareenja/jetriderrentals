@@ -1,6 +1,7 @@
 'use server'
 
 import { addFormSubmissionToSheet, FormSubmission } from '@/lib/googleSheets'
+import { sendEmailSimple } from '@/lib/sendEmailSimple'
 
 export async function submitForm(data: FormSubmission) {
   try {
@@ -58,36 +59,19 @@ export async function submitForm(data: FormSubmission) {
         env: process.env.NODE_ENV
       });
       
-      // Send email via API route (better for Vercel)
-      const baseUrl = process.env.NODE_ENV === 'production' 
-        ? 'https://jetriderentals.com' 
-        : 'http://localhost:3000'
-      
-      fetch(`${baseUrl}/api/send-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          to: 'mayanksharmarrk30@gmail.com',
-          subject: 'New Contact Submission - Rudra Car Rentals',
-          html: emailHtml,
-          text: `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nCar: ${data.car || '-'}\nPickup: ${data.pickupDate || '-'}\nReturn: ${data.returnDate || '-'}\nMessage: ${data.message || '-'}`,
-        }),
-      }).then(async (response) => {
-        if (response.ok) {
-          console.log('Email sent successfully for:', data.name);
-        } else {
-          const errorData = await response.json();
-          console.error('Failed to send contact email:', {
-            error: errorData.error,
-            name: data.name,
-            timestamp: new Date().toISOString()
-          });
-        }
+      // Send email directly (more reliable than API route from server action)
+      sendEmailSimple({
+        to: 'mayanksharmarrk30@gmail.com',
+        subject: 'New Contact Submission - Rudra Car Rentals',
+        html: emailHtml,
+        text: `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nCar: ${data.car || '-'}\nPickup: ${data.pickupDate || '-'}\nReturn: ${data.returnDate || '-'}\nMessage: ${data.message || '-'}`,
+      }).then(() => {
+        console.log('Email sent successfully for:', data.name);
       }).catch((err) => {
         console.error('Failed to send contact email:', {
           error: err.message,
+          code: err.code,
+          response: err.response,
           name: data.name,
           timestamp: new Date().toISOString()
         });

@@ -24,13 +24,19 @@ export async function sendEmailSimple(options: SendEmailOptions): Promise<void> 
       throw new Error('Gmail credentials not configured. Need: GMAIL_USER, GMAIL_APP_PASSWORD')
     }
 
-    // Create transporter with App Password
+    // Create transporter with App Password (Vercel-optimized)
     const transporter = nodemailer.createTransport({
       service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false, // true for 465, false for other ports
       auth: {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_APP_PASSWORD, // App Password, not regular password
       },
+      tls: {
+        rejectUnauthorized: false // For Vercel compatibility
+      }
     })
 
     // Verify connection
