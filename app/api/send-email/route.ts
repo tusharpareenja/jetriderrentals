@@ -1,17 +1,12 @@
+import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 
-interface SendEmailOptions {
-  to: string;
-  subject: string;
-  html: string;
-  text?: string;
-}
-
-export async function sendEmailSimple(options: SendEmailOptions): Promise<void> {
-  const { to, subject, html, text } = options
-
+export async function POST(request: NextRequest) {
   try {
-    console.log('Attempting to send email via Gmail App Password:', {
+    const body = await request.json()
+    const { to, subject, html, text } = body
+
+    console.log('API Route: Attempting to send email via Gmail App Password:', {
       to: to,
       subject: subject,
       timestamp: new Date().toISOString(),
@@ -21,7 +16,11 @@ export async function sendEmailSimple(options: SendEmailOptions): Promise<void> 
 
     // Check required credentials
     if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-      throw new Error('Gmail credentials not configured. Need: GMAIL_USER, GMAIL_APP_PASSWORD')
+      console.error('Gmail credentials not configured')
+      return NextResponse.json(
+        { error: 'Gmail credentials not configured. Need: GMAIL_USER, GMAIL_APP_PASSWORD' },
+        { status: 500 }
+      )
     }
 
     // Create transporter with App Password
@@ -35,7 +34,7 @@ export async function sendEmailSimple(options: SendEmailOptions): Promise<void> 
 
     // Verify connection
     await transporter.verify()
-    console.log('Gmail App Password connection verified successfully')
+    console.log('API Route: Gmail App Password connection verified successfully')
 
     // Send email
     const result = await transporter.sendMail({
@@ -46,19 +45,31 @@ export async function sendEmailSimple(options: SendEmailOptions): Promise<void> 
       text: text || html.replace(/<[^>]*>/g, '') // Strip HTML tags for text version
     })
 
-    console.log('Email sent successfully via Gmail App Password:', {
+    console.log('API Route: Email sent successfully via Gmail App Password:', {
       messageId: result.messageId,
       to: to,
       timestamp: new Date().toISOString()
     })
 
+    return NextResponse.json({
+      success: true,
+      messageId: result.messageId,
+      message: 'Email sent successfully'
+    })
+
   } catch (error) {
-    console.error('Gmail App Password sending failed:', {
+    console.error('API Route: Gmail App Password sending failed:', {
       error: error instanceof Error ? error.message : 'Unknown error',
       errorType: error instanceof Error ? error.constructor.name : typeof error,
-      to: to,
       timestamp: new Date().toISOString()
     })
-    throw error
+
+    return NextResponse.json(
+      { 
+        error: error instanceof Error ? error.message : 'Unknown error',
+        success: false 
+      },
+      { status: 500 }
+    )
   }
 }
