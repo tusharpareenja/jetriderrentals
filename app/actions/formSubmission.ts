@@ -38,7 +38,7 @@ export async function submitForm(data: FormSubmission) {
       // Fire-and-forget email notification; do not block success on email failure
       const emailHtml = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333;">New Contact Submission - Rudra Car Rentals</h2>
+          <h2 style="color: #333;">New Contact Submission - Jet Ride Rentals</h2>
           <p><strong>Name:</strong> ${data.name}</p>
           <p><strong>Phone:</strong> ${data.phone}</p>
           <p><strong>Email:</strong> ${data.email || 'Not provided'} </p>
@@ -47,7 +47,7 @@ export async function submitForm(data: FormSubmission) {
           <p><strong>Return Date:</strong> ${data.returnDate || 'Not specified'} </p>
           <p><strong>Message:</strong><br/>${data.message || 'No additional message'} </p>
           <hr style="margin: 20px 0;">
-          <p style="color: #666; font-size: 12px;">This email was sent from your Rudra Car Rentals website contact form.</p>
+          <p style="color: #666; font-size: 12px;">This email was sent from your Jet ride rental website contact form.</p>
         </div>
       `
       
@@ -61,7 +61,7 @@ export async function submitForm(data: FormSubmission) {
       
       // Send email directly (more reliable than API route from server action)
       sendEmailSimple({
-        to: 'ashish1999sheoran@gmail.com',
+        to: 'pareenja55555@gmail.com',
         subject: 'New Contact Submission - Rudra Car Rentals',
         html: emailHtml,
         text: `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email || '-'}\nCar: ${data.car || '-'}\nPickup: ${data.pickupDate || '-'}\nReturn: ${data.returnDate || '-'}\nMessage: ${data.message || '-'}`,
