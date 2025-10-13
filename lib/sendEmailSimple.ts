@@ -41,7 +41,7 @@ export async function sendEmailSimple(options: SendEmailOptions): Promise<void> 
             'User-Agent': 'RudraCarRentals/1.0'
           },
           body: JSON.stringify({
-            from: 'Rudra Car Rentals <noreply@jetriderentals.com>',
+            from: 'Jet Ride Rentals <noreply@jetriderentals.com>',
             to: [to],
             subject: subject,
             html: html,

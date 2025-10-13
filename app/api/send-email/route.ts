@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
 
     // Send email
     const result = await transporter.sendMail({
-      from: `Rudra Car Rentals <${process.env.GMAIL_USER}>`,
+      from: `Jet Ride Rentals <${process.env.GMAIL_USER}>`,
       to: to,
       subject: subject,
       html: html,

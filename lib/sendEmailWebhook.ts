@@ -28,7 +28,7 @@ export async function sendEmailWebhook(options: SendEmailOptions): Promise<void>
         subject: subject,
         html: html,
         text: text,
-        from: 'Rudra Car Rentals <noreply@jetriderentals.com>'
+        from: 'Jet Ride Rentals <noreply@jetriderentals.com>'
       })
     })
 

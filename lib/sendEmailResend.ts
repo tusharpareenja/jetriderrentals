@@ -26,13 +26,13 @@ export async function sendEmailResend(options: SendEmailOptions): Promise<void> 
     console.log('Attempting to send email via Resend:', {
       to: to,
       subject: subject,
-      from: 'Rudra Car Rentals <noreply@jetriderentals.com>',
+      from: 'Jet Ride Rentals <noreply@jetriderentals.com>',
       timestamp: new Date().toISOString()
     });
 
     // Add timeout to prevent hanging
     const emailPromise = resend.emails.send({
-      from: 'Rudra Car Rentals <noreply@jetriderentals.com>', // Use your verified domain
+      from: 'Jet Ride Rentals <noreply@jetriderentals.com>', // Use your verified domain
       to: [to],
       subject: subject,
       html: html,
