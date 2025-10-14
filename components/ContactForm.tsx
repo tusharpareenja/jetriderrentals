@@ -76,7 +76,7 @@ export default function ContactForm({ onSuccess, onError, className = "" }: Cont
         `
 
         const emailResult = await sendEmail({
-          to: 'tusharpareenja@gmail.com',
+          to: 'jetriderentals@gmail.com',
           subject: 'New Contact Submission - Jet Ride Rentals',
           html: emailHtml,
           text: `Name: ${formData.name}\nPhone: ${formData.phone}\nEmail: ${formData.email || '-'}\nCar: ${formData.car || '-'}\nPickup: ${formData.pickupDate || '-'}\nReturn: ${formData.returnDate || '-'}\nMessage: ${formData.message || '-'}`,
@@ -124,6 +124,7 @@ export default function ContactForm({ onSuccess, onError, className = "" }: Cont
             value={formData.name}
             onChange={(e) => handleInputChange('name', e.target.value)}
             placeholder="Your full name"
+            className="border border-gray-300 focus:border-blue-500"
             required
           />
         </div>
@@ -135,6 +136,7 @@ export default function ContactForm({ onSuccess, onError, className = "" }: Cont
             value={formData.phone}
             onChange={(e) => handleInputChange('phone', e.target.value)}
             placeholder="Your phone number"
+            className="border border-gray-300 focus:border-blue-500"
             required
           />
         </div>
@@ -149,6 +151,7 @@ export default function ContactForm({ onSuccess, onError, className = "" }: Cont
             value={formData.email}
             onChange={(e) => handleInputChange('email', e.target.value)}
             placeholder="your.email@example.com"
+            className="border border-gray-300 focus:border-blue-500"
           />
         </div>
         <div>
@@ -159,6 +162,7 @@ export default function ContactForm({ onSuccess, onError, className = "" }: Cont
             value={formData.car}
             onChange={(e) => handleInputChange('car', e.target.value)}
             placeholder="Car model you're interested in"
+            className="border border-gray-300 focus:border-blue-500"
           />
         </div>
       </div>
@@ -171,6 +175,7 @@ export default function ContactForm({ onSuccess, onError, className = "" }: Cont
             type="date"
             value={formData.pickupDate}
             onChange={(e) => handleInputChange('pickupDate', e.target.value)}
+            className="border border-gray-300 focus:border-blue-500"
           />
         </div>
         <div>
@@ -180,6 +185,7 @@ export default function ContactForm({ onSuccess, onError, className = "" }: Cont
             type="date"
             value={formData.returnDate}
             onChange={(e) => handleInputChange('returnDate', e.target.value)}
+            className="border border-gray-300 focus:border-blue-500"
           />
         </div>
       </div>
