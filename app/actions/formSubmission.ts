@@ -1,7 +1,7 @@
 'use server'
 
 import { addFormSubmissionToSheet, FormSubmission } from '@/lib/googleSheets'
-import { sendEmailSimple } from '@/lib/sendEmailSimple'
+import { EmailService } from '@/app/actions/email'
 
 export async function submitForm(data: FormSubmission) {
   try {
@@ -59,8 +59,8 @@ export async function submitForm(data: FormSubmission) {
         env: process.env.NODE_ENV
       });
       
-      // Send email directly (more reliable than API route from server action)
-      sendEmailSimple({
+      // Send email using new EmailService
+      EmailService({
         to: 'tusharpareenja@gmail.com',
         subject: 'New Contact Submission - Jet Ride Rentals',
         html: emailHtml,
