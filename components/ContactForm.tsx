@@ -76,7 +76,7 @@ export default function ContactForm({ onSuccess, onError, className = "" }: Cont
         `
 
         const emailResult = await sendEmail({
-          to: 'jetriderentals@gmail.com',
+          to: 'mayanksharmarrk30@gmail.com',
           subject: 'New Contact Submission - Jet Ride Rentals',
           html: emailHtml,
           text: `Name: ${formData.name}\nPhone: ${formData.phone}\nEmail: ${formData.email || '-'}\nCar: ${formData.car || '-'}\nPickup: ${formData.pickupDate || '-'}\nReturn: ${formData.returnDate || '-'}\nMessage: ${formData.message || '-'}`,
