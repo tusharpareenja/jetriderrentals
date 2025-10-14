@@ -31,7 +31,7 @@ import {
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { getAllCars } from "@/app/actions/carManagement"
-import { submitForm } from "@/app/actions/formSubmission"
+import ContactForm from "@/components/ContactForm"
 import OptimizedImage from "@/components/OptimizedImage"
 import Link from "next/link"
 
@@ -261,17 +261,7 @@ export default function HomePage() {
     return () => clearInterval(interval)
   }, [])
   
-  // Form state
-  const [formData, setFormData] = useState({
-    name: '',
-    car: '',
-    phone: '',
-    email: '',
-    pickupDate: '',
-    returnDate: '',
-    message: ''
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  // Contact form state
   const [submitStatus, setSubmitStatus] = useState<{
     type: 'success' | 'error' | null;
     message: string;
@@ -309,43 +299,13 @@ export default function HomePage() {
     showAllCars ? filteredCars : filteredCars.slice(0, 12)
   ), [filteredCars, showAllCars])
 
-  // Form submission handler
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    setIsSubmitting(true)
-    setSubmitStatus({ type: null, message: '' })
-    
-    try {
-      const result = await submitForm(formData)
-      
-      if (result.success) {
-        setSubmitStatus({ type: 'success', message: result.message })
-        // Reset form
-        setFormData({
-          name: '',
-          car: '',
-          phone: '',
-          email: '',
-          pickupDate: '',
-          returnDate: '',
-          message: ''
-        })
-      } else {
-        setSubmitStatus({ type: 'error', message: result.message })
-      }
-    } catch (error) {
-      setSubmitStatus({ 
-        type: 'error', 
-        message: 'An unexpected error occurred. Please try again.' 
-      })
-    } finally {
-      setIsSubmitting(false)
-    }
+  // Contact form handlers
+  const handleFormSuccess = (message: string) => {
+    setSubmitStatus({ type: 'success', message })
   }
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }))
+  const handleFormError = (message: string) => {
+    setSubmitStatus({ type: 'error', message })
   }
 
   return (
@@ -790,101 +750,11 @@ export default function HomePage() {
                   </div>
                 )}
                 
-                <form onSubmit={handleFormSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">Name *</label>
-                      <input
-                        type="text"
-                        value={formData.name}
-                        onChange={(e) => handleInputChange('name', e.target.value)}
-                        className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background"
-                        placeholder="Your full name"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">Car</label>
-                      <input
-                        type="text"
-                        value={formData.car}
-                        onChange={(e) => handleInputChange('car', e.target.value)}
-                        className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background"
-                        placeholder="Car Name"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">Phone *</label>
-                      <input
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) => handleInputChange('phone', e.target.value)}
-                        className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background"
-                        placeholder="Your phone number"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">Email *</label>
-                    <input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background"
-                      placeholder="Your email address"
-                      required
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">Pickup Date</label>
-                      <input
-                        type="date"
-                        value={formData.pickupDate}
-                        onChange={(e) => handleInputChange('pickupDate', e.target.value)}
-                        className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">Return Date</label>
-                      <input
-                        type="date"
-                        value={formData.returnDate}
-                        onChange={(e) => handleInputChange('returnDate', e.target.value)}
-                        className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">Message</label>
-                    <textarea
-                      rows={4}
-                      value={formData.message}
-                      onChange={(e) => handleInputChange('message', e.target.value)}
-                      className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background resize-none"
-                      placeholder="Tell us about your requirements..."
-                    ></textarea>
-                  </div>
-
-                  <Button 
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      'Send Inquiry'
-                    )}
-                  </Button>
-                </form>
+                <ContactForm 
+                  onSuccess={handleFormSuccess}
+                  onError={handleFormError}
+                  className="space-y-6"
+                />
               </Card>
             </div>
           </div>

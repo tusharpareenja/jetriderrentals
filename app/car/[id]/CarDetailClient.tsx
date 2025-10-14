@@ -21,7 +21,7 @@ import {
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { getCarById } from "@/app/actions/carManagement"
-import { submitForm } from "@/app/actions/formSubmission"
+import BookingForm from "@/components/BookingForm"
 import OptimizedImage from "@/components/OptimizedImage"
 
 // Car interface
@@ -57,15 +57,6 @@ export default function CarDetailClient({ params }: { params: { id: string } }) 
   
   // Booking form state
   const [isBookingFormOpen, setIsBookingFormOpen] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [bookingForm, setBookingForm] = useState({
-    name: '',
-    phone: '',
-    car: '',
-    pickupDate: '',
-    dropDate: '',
-    pickupFrom: ''
-  })
   const [submitStatus, setSubmitStatus] = useState<{
     type: 'success' | 'error' | null;
     message: string;
@@ -73,85 +64,38 @@ export default function CarDetailClient({ params }: { params: { id: string } }) 
 
   // Fetch car data from backend
   useEffect(() => {
-      const fetchCar = async () => {
-    try {
-      setIsLoading(true)
-      const result = await getCarById(params.id)
-      if (result.success && result.car) {
-        setCar(result.car)
-        // Pre-fill car name in booking form
-        setBookingForm(prev => ({ ...prev, car: result.car.name }))
-      } else {
-        console.error('Failed to fetch car:', result.message)
+    const fetchCar = async () => {
+      try {
+        setIsLoading(true)
+        const result = await getCarById(params.id)
+        if (result.success && result.car) {
+          setCar(result.car)
+        } else {
+          console.error('Failed to fetch car:', result.message)
+        }
+      } catch (error) {
+        console.error('Error fetching car:', error)
+      } finally {
+        setIsLoading(false)
       }
-    } catch (error) {
-      console.error('Error fetching car:', error)
-    } finally {
-      setIsLoading(false)
     }
+
+    fetchCar()
+  }, [params.id])
+
+  // Booking form handlers
+  const handleBookingSuccess = (message: string) => {
+    setSubmitStatus({ type: 'success', message })
   }
 
-  fetchCar()
-}, [params.id])
-
-// Booking form handlers
-const handleBookingFormSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
-  
-  setIsSubmitting(true)
-  setSubmitStatus({ type: null, message: '' })
-  
-  try {
-    // Submit booking to Google Sheets using existing form submission
-    const result = await submitForm({
-      name: bookingForm.name,
-      car: bookingForm.car,
-      phone: bookingForm.phone,
-      email: '', // Not collected in booking form
-      pickupDate: bookingForm.pickupDate,
-      returnDate: bookingForm.dropDate,
-      message: `Booking Type: Car Rental | Pickup From: ${bookingForm.pickupFrom}`
-    })
-    
-    if (result.success) {
-      setSubmitStatus({ 
-        type: 'success', 
-        message: 'Thank you! Your booking has been submitted successfully. We will contact you soon to confirm your reservation.' 
-      })
-      
-      // Reset form after successful submission
-      setTimeout(() => {
-        setBookingForm({
-          name: '',
-          phone: '',
-          car: car?.name || '',
-          pickupDate: '',
-          dropDate: '',
-          pickupFrom: ''
-        })
-        setIsBookingFormOpen(false)
-        setSubmitStatus({ type: null, message: '' })
-      }, 3000)
-    } else {
-      setSubmitStatus({ 
-        type: 'error', 
-        message: result.message 
-      })
-    }
-    
-  } catch (error) {
-    setSubmitStatus({ 
-      type: 'error', 
-      message: 'An unexpected error occurred. Please try again.' 
-    })
-  } finally {
-    setIsSubmitting(false)
+  const handleBookingError = (message: string) => {
+    setSubmitStatus({ type: 'error', message })
   }
-}
 
-const handleInputChange = (field: string, value: string) => {
-  setBookingForm(prev => ({ ...prev, [field]: value }))
-}
+  const handleCloseBookingForm = () => {
+    setIsBookingFormOpen(false)
+    setSubmitStatus({ type: null, message: '' })
+  }
 
 const openBookingForm = () => {
   setIsBookingFormOpen(true)
@@ -507,103 +451,24 @@ const openBookingForm = () => {
                 </div>
               )}
 
-              <form onSubmit={handleBookingFormSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Name *</label>
-                  <input
-                    type="text"
-                    value={bookingForm.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
-                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background"
-                    placeholder="Your full name"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Phone *</label>
-                  <input
-                    type="tel"
-                    value={bookingForm.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background"
-                    placeholder="Your phone number"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Car</label>
-                  <input
-                    type="text"
-                    value={bookingForm.car}
-                    onChange={(e) => handleInputChange('car', e.target.value)}
-                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background"
-                    placeholder="Car name"
-                    readOnly
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Pickup From *</label>
-                  <input
-                    type="text"
-                    value={bookingForm.pickupFrom}
-                    onChange={(e) => handleInputChange('pickupFrom', e.target.value)}
-                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background"
-                    placeholder="Pickup location (e.g., Chandigarh Airport, Hotel, etc.)"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Pickup Date *</label>
-                  <input
-                    type="date"
-                    value={bookingForm.pickupDate}
-                    onChange={(e) => handleInputChange('pickupDate', e.target.value)}
-                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Drop Date *</label>
-                  <input
-                    type="date"
-                    value={bookingForm.dropDate}
-                    onChange={(e) => handleInputChange('dropDate', e.target.value)}
-                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background"
-                    required
-                  />
-                </div>
-
+              <div className="space-y-4">
+                <BookingForm 
+                  carName={car?.name || ''}
+                  onSuccess={handleBookingSuccess}
+                  onError={handleBookingError}
+                  onClose={handleCloseBookingForm}
+                />
                 <div className="flex gap-3 pt-4">
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={() => setIsBookingFormOpen(false)}
+                    onClick={handleCloseBookingForm}
                     className="flex-1"
-                    disabled={isSubmitting}
                   >
                     Cancel
                   </Button>
-                  <Button
-                    type="submit"
-                    className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        Submitting...
-                      </>
-                    ) : (
-                      'Submit Booking'
-                    )}
-                  </Button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
