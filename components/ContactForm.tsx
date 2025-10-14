@@ -109,7 +109,7 @@ export default function ContactForm({ onSuccess, onError, className = "" }: Cont
     }
   }
 
-  const handleInputChange = (field: keyof FormSubmission, value: string) => {
+  const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
   }
 
