@@ -30,10 +30,11 @@ const useSendEmail = () => {
 
       setLoading(false);
       return { success: true, message: "Email sent succesfully !" };
-    } catch (err:any) {
+    } catch (err: unknown) {
       setLoading(false);
-      setError(err.message);
-      return { success: false, message: err.message };
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
+      setError(errorMessage);
+      return { success: false, message: errorMessage };
     }
   };
 

@@ -1,6 +1,5 @@
 "use server";
 
-import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 export const EmailService = async (data:{
@@ -27,7 +26,7 @@ export const EmailService = async (data:{
       html : data.html,
     });
     return true
-  } catch (error:any) {
+  } catch (error: unknown) {
     console.error('Error sending email:', error);
   }
 }
