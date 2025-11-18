@@ -82,7 +82,7 @@ export default function BookingForm({
         `
 
         const emailResult = await sendEmail({
-          to: 'tusharpareenja@gmail.com',
+          to: 'jetriderentals@gmail.com',
           subject: 'New Car Booking - Jet Ride Rentals',
           html: emailHtml,
           text: `Name: ${bookingForm.name}\nPhone: ${bookingForm.phone}\nCar: ${carName}\nPickup Date: ${bookingForm.pickupDate || '-'}\nReturn Date: ${bookingForm.dropDate || '-'}\nPickup From: ${bookingForm.pickupFrom || '-'}`,
