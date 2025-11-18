@@ -1,4 +1,21 @@
 export default function Page() {
+
+      const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CarRental",
+    "name": "JetRide Rentals",
+    "url": "https://www.jetriderentals.com",
+    "logo": "https://www.jetriderentals.com/logo.png",
+    "description": "JetRide Rentals provides affordable car, bike, and scooty rentals in Chandigarh, Mohali, and Panchkula.",
+    "areaServed": ["Chandigarh", "Mohali", "Panchkula"],
+    "telephone": "+91-9090151546",
+    "priceRange": "₹₹",
+    "openingHours": "Mo-Su 00:00-23:59",
+    "sameAs": [
+      "https://www.instagram.com/jetriderentals",
+      "https://www.facebook.com/jetriderentals"
+    ]
+  };
   return (
     <div>
       <h1>Welcome to Jet Ride Rentals</h1>

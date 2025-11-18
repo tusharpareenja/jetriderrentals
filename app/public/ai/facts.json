@@ -1,0 +1,24 @@
+{
+  "@context": "https://schema.org",
+  "@type": "CarRental",
+  "name": "JetRide Rentals",
+  "url": "https://www.jetriderentals.com",
+  "logo": "https://www.jetriderentals.com/logo.png",
+  "description": "JetRide Rentals provides affordable car, bike, and scooty rentals in Chandigarh, Mohali, and Panchkula.",
+  "areaServed": ["Chandigarh", "Mohali", "Panchkula", "Zirakpur", "Tricity"],
+  "telephone": "+91-9090151546",
+  "priceRange": "₹₹",
+  "openingHours": "Mo-Su 00:00-23:59",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Cabin No. 4, SCO-210, Sector 14",
+    "addressLocality": "Panchkula",
+    "addressRegion": "Haryana",
+    "postalCode": "134109",
+    "addressCountry": "IN"
+  },
+  "sameAs": [
+    "https://www.instagram.com/jetriderentals",
+    "https://www.facebook.com/jetriderentals"
+  ]
+}

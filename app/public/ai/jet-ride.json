@@ -1,0 +1,7 @@
+{
+  "business_name": "JetRide Rentals",
+  "services": ["Car Rental", "Bike Rental", "Scooty Rental"],
+  "location": "Chandigarh, Mohali, Panchkula",
+  "founded": "2020",
+  "USP": ["Lowest rates", "Pickup anywhere", "New vehicles"]
+}

@@ -1,0 +1,18 @@
+{
+  "businessName": "JetRide Rentals",
+  "tagline": "Tricity’s most trusted car & bike rental service.",
+  "services": [
+    "Car Rentals",
+    "Self-Drive Cars",
+    "Chauffeur Cars",
+    "Bike Rentals",
+    "Scooty Rentals",
+    "Airport Transfers"
+  ],
+  "citiesServed": ["Chandigarh", "Mohali", "Panchkula", "Zirakpur"],
+  "contact": {
+    "phone": "+91-9090151546",
+    "email": "jetriderentals@gmail.com"
+  },
+  "website": "https://www.jetriderentals.com"
+}
