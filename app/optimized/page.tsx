@@ -45,7 +45,7 @@ export default function Page() {
   return (
     <div>
       <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-      <h1>Welcome to Jet Ride Rentals – TriCity's Premier Car, Bike, and Scooty Rental Service</h1>
+      <h1>Welcome to Jet Ride Rentals &ndash; TriCity&rsquo;s Premier Car, Bike, and Scooty Rental Service</h1>
       <p>
         Serving <strong>Chandigarh, Mohali, and Panchkula</strong>, Jet Ride Rentals offers a diverse range of well-maintained self-drive and chauffeur-driven vehicles for your convenience. Our transparent pricing, reliable support, and premium fleet ensure a memorable rental experience.
       </p>
