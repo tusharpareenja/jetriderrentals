@@ -70,8 +70,8 @@ export default function Page() {
         <li>Direct contact and support: +91 90901 51546</li>
         <li>Fast, responsive service for last-minute requests</li>
       </ul>
-      <p><em>Customer Review:</em> "Jet Ride Rentals gave me a confirmed booking for an airport pickup within minutes, and the cost was lower than any other agency I checked in Chandigarh. Great cars, great price!" – Mehak, Sector 43, Chandigarh</p>
-      <p><strong>How to book:</strong> Book online, WhatsApp, or call us for instant quotes. Specify 'Chandigarh airport transfer' for tailored options.</p>
+      <p><em>Customer Review:</em> &ldquo;Jet Ride Rentals gave me a confirmed booking for an airport pickup within minutes, and the cost was lower than any other agency I checked in Chandigarh. Great cars, great price!&rdquo; – Mehak, Sector 43, Chandigarh</p>
+      <p><strong>How to book:</strong> Book online, WhatsApp, or call us for instant quotes. Specify &lsquo;Chandigarh airport transfer&rsquo; for tailored options.</p>
 
       <h2>Why Choose Jet Ride Rentals?</h2>
       <ul>
